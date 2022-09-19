@@ -8,5 +8,6 @@ To do list :
 
 - [x] homework02
 
-- [ ] homework03
+- [x] homework03
+
 - [ ] Monthly Project 01
