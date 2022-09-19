@@ -5,6 +5,7 @@
 \usepackage[margin=1.5cm]{geometry}
 \usepackage[title]{appendix}
 \usepackage{listings}
+\usepackage{booktabs}
 
 \graphicspath{{../pic/}}
 \lstset{
@@ -47,12 +48,11 @@ breakindent=.5\textwidth,frame=single,breaklines=true
 
 \begin{abstract}
     \subsubsection*{Problem 1}
-    
+        We watched 3 videos this week. The first one tells us to protect the earth, the second one introduced the work theory of wireless earbuds, and the last one wants us to move more to keep our mind clever.
     \subsubsection*{Problem 2}
-
+        I did a research to find out When is average undergraduate students most or least happy during a day or a week, and teached my computer to do the same work.
     \subsubsection*{Problem 3}
-
-    \subsubsection*{Problem 4}
+        Proof of some formulas.
 
 \end{abstract}
 
@@ -109,6 +109,59 @@ Saying goes, life lies in sports, and we all know it. What's more, people today 
 
 \section{Problem 2}
 
+\subsection{Results}
+I will show you what I know from my campus survey. If you want to see the original survey data, please see the file of research.csv.
+
+\begin{tabular}{ccc}
+    % 其中，tabular是表格内容的环境；c表示centering，即文本格式居中；c的个数代表列的个数
+    \toprule %[2pt]设置线宽     
+    \centering
+    &Daily  &  Weekly \\ %换行
+    \midrule %[2pt]  
+    Most Happy & Evening & Friday or Saturday \\
+    Least Happy & Morning &Monday \\
+    \bottomrule %[2pt]     
+    \end{tabular}
+
+I will answer your questions in the subsections below. Due to space barriers, the survey source data that cannot be fully displayed will be displayed in the attached research.csv file.
+\subsection{ What school can do?}
+I'd like to introduce to you what schools can do to improve our campus life, as I saw in the survey results.
+\subsubsection{Time Manage}
+We can see that in the survey, there are some students who are happiest at night or at weekends, but also face academic problems. I think there are two reasons for this: 1. The student's curriculum arrangement is too tight, which makes him unable to get a good rest in the working day. At the same time, the accumulated fatigue will also accumulate at this time, leading to the problem of lack of energy and academic difficulty; 2. The student usually procrastinates and is lazy in studying on weekdays, which leads to the loss of interest in class and the desire to have a rest during the holidays.
+
+For such students, we can ask counselors to give them suggestions to solve their academic problems, improve their learning efficiency, and make them calmly face the heavy study.
+\subsubsection{Help from Help Centres in Campus}
+
+n the questionnaire, there is a survey on emotions and recent troubles, which is to judge whether the respondents have mental health or life problems.
+
+Due to learning pressure, family changes and other reasons, students may have too many bad emotions in their lives. If they do not solve them, they will have psychological problems. At this time, we should give full play to the role of the school's help organization and give adequate psychological guidance.
+
+On the other hand, students who have difficulties in planning their own lives should also receive additional help from the Career Planning Center.
+
+\subsubsection{Academic Advising}
+
+t can be seen from the questionnaire that some students prefer working days to rest days, prefer morning to night, but think that their studies are difficult. This shows that they tend to love learning and can plan their time well, but still feel that the amount of knowledge they have learned or the difficulty of learning is their trouble.
+
+For such problems, the school can make a good notice so that every student can know how to seize every opportunity to communicate with the teacher.
+
+\subsubsection{Conclusion}
+In the data table (research. csv), I judged which help the students participating in the survey might need according to my own cognition, and then marked it after the data (0 means the student's life is relatively happy).
+
+It can be seen that there are relatively many student associations that need help from the school organization. The school can focus on improving the students' understanding of the mental health center and the career planning center according to this.
+
+\subsection{Other meaningful results}
+
+\begin{enumerate}
+    \item Students who find it difficult to control their emotions have love problems.
+    \item Most of the students who feel that their studies are heavy like morning and night.
+\end{enumerate}
+
+\subsection{Teach Computers to Get Similar Results Automatically}
+In my plan, I will use Python to build a simple machine learning model. 
+However, it is very difficult to use Python to process Chinese, so I replaced all the options of the single choice questions in the questionnaire with integers.
+This process will make full use of Excel's search function and is very boring, so it will not appear in my report.
+
+The full code is in the coding listing section.
 \section{Problem 3}
 
 \subsection{Problem Restatement}
@@ -212,9 +265,26 @@ Prove the following
 % \bibliographystyle{ieeetr}
 % \bibliography{../bib/database}
 
+\section{conclusion}
+\begin{enumerate}
+    \item 
+    After watching the first video, I became interested in the website supporting the video, and saw many simple ways to protect the earth, such as refusing plastic bags and low-carbon travel, which have been proposed for a long time, as well as some new ways. If more people can know and practice these tips, this documentary will achieve its very important mission.
+    
+    The principle of wireless headphones in the second video is what I have always wanted to know.
+    
+    In the third video, the talker's idea is very exciting, which makes people want to do some sports immediately. This kind of vitality is exactly what we need.
+    \item 
+    It can be seen from the thermal diagram (appendix) that the results in the report are not satisfactory. If we can have a larger number of data and have enough time to process these data, we will get a model to judge whether students need school help once and for all.
+    \item
+    We have learned these knowledge from previous studies, but some of them have forgotten that they need to be consolidated again. It is a good way to prove the formulas.
+\end{enumerate}
+
 \begin{appendices}
+    \section{Code Listing}
     
 \end{appendices}
+
+
 
 \end{document}
 
