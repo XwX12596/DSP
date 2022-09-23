@@ -2,7 +2,6 @@ from PyQt5.QtWidgets import QApplication, QWidget
 import sys
 import sounddevice as sd
 import numpy as np
-
 from form import Ui_Form
 
 class FormWidget(QWidget):
@@ -16,18 +15,21 @@ class FormWidget(QWidget):
     
     def Ui_connect(self):
         self.ui.start.pressed.connect(self.toPlay)
+        self.ui.m1.pressed.connect(self.addFreq)
+        self.ui.m10.pressed.connect(self.addFreq)
+        self.ui.m100.pressed.connect(self.addFreq)
+        self.ui.p1.pressed.connect(self.addFreq)
         self.ui.p10.pressed.connect(self.addFreq)
         self.ui.p100.pressed.connect(self.addFreq)
         self.ui.p1000.pressed.connect(self.addFreq)
+        self.ui.p10000.pressed.connect(self.addFreq)
 
     def toPlay(self):
         f = int(self.ui.freq_le.text()) #Hz
         fs = 44100 #Hz
-        length = 2 #s
+        length = 10 #s
         x = np.arange(fs*length)
-        # y = np.zeros(fs*length)
-        # for i in range(8):
-        #     y = y + 10**(-i) * np.sin(2 * np.pi * (i + 1) * f / fs * x)
+        y0 = np.zeros(fs*length)
         y = np.sin(2 * np.pi * f / fs * x)
         sd.play(y,fs,blocking=False)
         
@@ -39,12 +41,22 @@ class FormWidget(QWidget):
         except:
             self.ui.freq_le.setText('0')
             f = 1
-        if sender_name == 'p10':
+        if sender_name == 'm1':
+            f = f - 1
+        elif sender_name == 'm10':
+            f = f - 10
+        elif sender_name == 'm100':
+            f = f - 100
+        elif sender_name == 'p1':
+            f = f + 1
+        elif sender_name == 'p10':
             f = f + 10
         elif sender_name == 'p100':
             f = f + 100
-        else:
+        elif sender_name == 'p1000':
             f = f + 1000
+        else:
+            f = f + 10000
         self.ui.freq_le.setText(str(f))
         
 
