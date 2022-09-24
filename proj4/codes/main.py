@@ -26,7 +26,7 @@ class FormWidget(QWidget):
 
     def toPlay(self):
         f = int(self.ui.freq_le.text()) #Hz
-        fs = 44100 #Hz
+        fs = 96000 #Hz
         length = 10 #s
         x = np.arange(fs*length)
         y0 = np.zeros(fs*length)
