@@ -6,6 +6,7 @@
 \usepackage[title]{appendix}
 \usepackage{listings}
 \usepackage{booktabs}
+% \usepackage{hyperref}
 
 \graphicspath{{../pic/}}
 \lstset{
@@ -48,13 +49,33 @@ breakindent=.5\textwidth,frame=single,breaklines=true
 \begin{abstract}
 \subsubsection*{Starlink}
 This is a video about how the satellite communicate with the antenna on earth, explaining the 3 questions below.
-
 \begin{enumerate}
     \item How electrical signals become electromagnetic waves
     \item How to realize automatic antenna tracking
     \item How to convert binary data into electrical signal
 \end{enumerate}
 
+\subsubsection*{Equation Proof}
+We have
+$$
+s(t) = 
+\left\{
+    \begin{array}{lr}
+        1, & \mathrm{if}\; t = nT,\\
+        0, & \mathrm{otherwise.}
+    \end{array}
+\right.
+$$
+Prove that
+$$
+\widetilde{s}(t) = 0
+$$
+
+\subsubsection*{Frequency Response of our ears}
+This section is mainly about testing our ears with a program written by python.
+
+\subsubsection*{Web Camera}
+Monitoring my seat from everywhere on earth.
 \end{abstract}
 
 \section{Problem 1}
@@ -73,8 +94,6 @@ Starlink is a satellite internet constellation operated by SpaceX, providing sat
 It looks like a  beautiful vision for the future, everyone on this planet can access the high-speed network. But the price is pretty expensive. The customer's monthly fee is \$99. The cost of dish antennas and routers required to connect satellites is \$549. Whether that vision could achieve success needs to be questioned.
 
 Moreover, this project has brought more problems. Astronomers claim that the number of visible satellites will outnumber visible stars and that their brightness in both optical and radio wavelengths will severely impact scientific observations.\cite{BBC_starlink} With only a speed of 150 and 500Mbit/s, whether this starlink project will change our life, I remain skeptical.
-
-
 
 \section{Problem 2}
 \subsection{Problem Restatement}
@@ -137,9 +156,9 @@ Therefore
 Therefore
 \begin{equation*}
     \widetilde{x}_s(t) = \widetilde{s}(t) = 0
-    \label{ans}
 \end{equation*}
 Equation (\ref{ans}) proved.
+
 \section{Problem 3}
 \subsection{Problem Restatement}
 Design and carry out an experiment to find out the highest and lowest audio frequencies that your left and right ears can
@@ -172,13 +191,54 @@ From $1~\mathrm{kHz}$, I made the frequency higher and lower until I cannot hear
 At last, in this way, the frequency response range of my ears is $xx \sim xx ~ \mathrm{kHz}$.
 
 \section{Problem 4}
-\subsection{What}
+\subsection{Problem Restatement}
+Write a (improved) proposal for your first project.
+\subsection{Reason}
+I bought a Raspberry Pi 4B for fun when I was a freshman, but I don't really have the motivation to use this little thing as something functional. All I did was running a Minecraft server on this thing and broadcast the port where the server ran, in order to play with my friends in other universities.
 
-\subsection{Why}
+It costs a lot these days to buy a Raspberry Pi, so I want to make it useful again!
+\subsection{Inspiration}
+But after I read the proposal of Su Rundong (\emph{He again}), what came into my mind was to let the Raspberry Pi work as the hardware to realize the functions he mentioned in his proposal. Moreover, I want to use this thing as my remote monitor camera so that I can watch my seat and prevent someone from sitting in my chair! (Thankfully, in \emph{LZU}, I have nice roommates who don't mess others' things up)
+\subsection{Things I will do}
+Raspberry Pi is a rich-functional micro computer, and it can drive camera to record videos or take a photo. What I should do in this project is to 
+\begin{enumerate}
+    \item Launching a web camera (accessible with Internet) broadcast the live video of my seat in dormitory, like the one in Fig.\ref{webcam}
+    \item Using python to control the camera to take a photo
+\end{enumerate}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[keepaspectratio,width=250pt]{webcam.jpg}
+    \caption{Other people's livestream of the web camera}\label{webcam}
+\end{figure}
+To achieve the first aim in the last subsection, I will try to use mjpg-streamer\cite{mjpg-streamer} to stream JPEG files over an IP-based network. This is a function already implemented by others, so I will follow the instructions in this repository. The Raspberry Pi will only connect the WiFi in our dormitory, but I will use NAT to broadcast the port so that I can see the video out of dormitory with my smartphone.
 
-\subsection{How}
+Then, the second, it is easy if I use the python package of picamera.
+\subsection{Things I will try to do}
+A web page that can send http request what tell the camera to take a picture and return with a picture.\cite{web_picam}
 
+\section{Conclusion}
+\subsubsection*{Starlink}
 
+Although the starlink project is so amazing, the actual effect of it should be doubted and the problems it brings to us remain to be solved.
+\subsubsection*{Equation Proof}
+
+The function 
+$$
+s(t) = 
+\left\{
+    \begin{array}{lr}
+        1, & \mathrm{if}\; t = nT,\\
+        0, & \mathrm{otherwise.}
+    \end{array}
+\right.
+$$
+is not suitable for sampling.
+\subsubsection*{Frequency Response of our ears}
+
+My left ears can hear $xx \sim xx ~ \mathrm{kHz}$ sound waves and my right ears can hear $xx \sim xx ~ \mathrm{kHz}$ sound waves.
+\subsubsection*{Web Camera}
+
+I'll try to launch a web camera with Raspberry Pi which is connected to the Internet.
 \bibliographystyle{ieeetr}
 \bibliography{../bib/database}
 
@@ -190,16 +250,16 @@ At last, in this way, the frequency response range of my ears is $xx \sim xx ~ \
     import sys
     import sounddevice as sd
     import numpy as np
-    from form import Ui_Form
+    from form import Ui_Form #a form auto-generated from a ui file which was made in help of Qt Creator
 
     class FormWidget(QWidget):
         def __init__(self):
             super().__init__()
             self.ui = Ui_Form()
             self.ui.setupUi(self)
-            self.ui.retranslateUi(self)
-            self.Ui_connect()
-            self.ui.freq_le.setText('0')
+            self.ui.retranslateUi(self) #initialize the ui
+            self.Ui_connect() #connect buttons with functions
+            self.ui.freq_le.setText('0') #initial value of frequency
         
         def Ui_connect(self):
             self.ui.start.pressed.connect(self.toPlay)
@@ -213,21 +273,26 @@ At last, in this way, the frequency response range of my ears is $xx \sim xx ~ \
             self.ui.p10000.pressed.connect(self.addFreq)
 
         def toPlay(self):
-            f = int(self.ui.freq_le.text()) #Hz
-            fs = 96000 #Hz
-            length = 10 #s
+            '''
+            Generate and play the sound wave according to the text of lineEdit.
+            '''
+            f = int(self.ui.freq_le.text()) # frequency of the sine wave
+            fs = 96000 # sampling 
+            length = 10 # seconds it lasts
             x = np.arange(fs*length)
-            y0 = np.zeros(fs*length)
-            y = np.sin(2 * np.pi * f / fs * x)
-            sd.play(y,fs,blocking=False)
+            y = np.sin(2 * np.pi * f / fs * x) # generate a sine wave
+            sd.play(y,fs,blocking=False) # play the sine wave as a sound wave
             
         def addFreq(self):
+            '''
+            Increase or decrease the value in LineEdit which stands for the frequency of sound wave
+            '''
             sender = self.sender()
             sender_name = sender.objectName()
             try:
-                f = int(self.ui.freq_le.text())
+                f = int(self.ui.freq_le.text()) # get the value of LineEdit
             except:
-                self.ui.freq_le.setText('0')
+                self.ui.freq_le.setText('0') # default frequency (be 0 for protecting ears)
                 f = 1
             if sender_name == 'm1':
                 f = f - 1
@@ -245,13 +310,13 @@ At last, in this way, the frequency response range of my ears is $xx \sim xx ~ \
                 f = f + 1000
             else:
                 f = f + 10000
-            self.ui.freq_le.setText(str(f))
+            self.ui.freq_le.setText(str(f)) # show the changed frequency
             
 
     if __name__ == '__main__':
         app = QApplication(sys.argv)
         main = FormWidget()
-        main.show()
+        main.show() #initialize and show the window
         sys.exit(app.exec_())
     \end{python}
     \begin{python}
@@ -337,8 +402,6 @@ At last, in this way, the frequency response range of my ears is $xx \sim xx ~ \
             self.m100.setText(_translate("Form", "-100Hz"))
     \end{python}
 \end{appendices}
-
-
 
 \end{document}
 

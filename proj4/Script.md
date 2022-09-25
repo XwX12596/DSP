@@ -47,3 +47,36 @@ Starlink is a satellite internet constellation operated by SpaceX, providing sat
  It looks like a  beautiful vision for the future, everyone on this planet can access the high-speed network. But the price is pretty expensive. The customer's monthly fee is \$99. The cost of dish antennas and routers required to connect satellites is \$549. Whether that vision could achieve success needs to be questioned.
 
 Moreover, this project has brought more problems. Astronomers claim that the number of visible satellites will outnumber visible stars and that their brightness in both optical and radio wavelengths will severely impact scientific observations. 
+
+# Proposal
+
+## Why I want to do?
+
+### Utilization of idle goods
+
+I bought a Raspberry Pi 4B for fun when I was a freshman, but I don't really have the motivation to use this little thing as something functional. All I did was running a Minecraft server on this thing and broadcast the port where the server ran, in order to play with my friends in other universities.
+
+It costs a lot these days to buy a Raspberry Pi, so I want to make it useful again!
+
+### Inspiration From Others
+
+But after I read the proposal of Su Rundong (*He again*), what came into my mind was to let the Raspberry Pi work as the hardware to realize the functions he mentioned in his proposal. Moreover, I want to use this thing as my remote monitor camera so that I can watch my seat and prevent someone from sitting in my chair! (Thankfully, in *LZU*, I have nice roommates who don't mess others' things up)
+
+## What I want to do?
+
+### The least things I will do
+
+Raspberry Pi is a rich-functional micro computer, and it can drive camera to record videos or take a photo. What I should do in this project is to 
+
+- Making a web camera watching my seat in dormitory
+- Using python to control the camera to take a photo
+
+> mjpg-streamer is a command line application that copies JPEG frames from one or more input plugins to multiple output plugins. It can be used to stream JPEG files over an IP-based network from a webcam to various types of viewers such as Chrome, VLC, and other software capable of receiving MJPG streams.
+
+To achieve the first aim in the last subsection, I will try to use mjpg-streamer[x] to stream JPEG files over an IP-based network. This is a function already implemented by others, so I will follow the instructions in this repository.
+
+Then, the second, it is easy if I use the python package of picamera.
+
+### Other things I will try to do
+
+A web page that can send http request what tell the camera to take a picture and return with a picture. Inspired by this blog.
