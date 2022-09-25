@@ -46,11 +46,35 @@ breakindent=.5\textwidth,frame=single,breaklines=true
 \maketitle
 \tableofcontents
 \begin{abstract}
+\subsubsection*{Starlink}
+This is a video about how the satellite communicate with the antenna on earth, explaining the 3 questions below.
 
+\begin{enumerate}
+    \item How electrical signals become electromagnetic waves
+    \item How to realize automatic antenna tracking
+    \item How to convert binary data into electrical signal
+\end{enumerate}
 
 \end{abstract}
 
 \section{Problem 1}
+\subsection{Summary}
+\subsubsection{Transmit and Receive}
+In order to transmit electrical signals to satellites through wireless channels, we need to convert them into electromagnetic waves. There is a feedline and a metal plate close to each other in the antenna. The electrons will flow quickly (13$~\mathrm{Ghz}$) on the feedline, and the changing electric field will be generated in the process of electron flow. We know that the changing electric field will produce magnetic field, which will finally generate electromagnetic waves. A slice antenna like this will make the electromagnetic wave propagates outwards in a balloon shape.
+
+The single antenna with poor directivity is not what we want, so there are 1280 antennas in the antenna array. Because the phase of electromagnetic wave will change with the position when it is transmitted, there are always constructive interference and destructive interference happening at the same time. This is how the electromagnetic beam is generated.
+\subsubsection{Phase Shift}
+Due to the unreliability of the motor, it is not unrealistic to use the motor to control the antenna orientation. But, we can change the zone of constructive interference by changing the phase of signal when each antenna emits, so as to change the direction of the beam of electromagnetic wave.
+\subsubsection{64QAM}
+QAM stands for Quadrature Amplitude Modulation. 64QAM means, on the polar coordinate plane of amplitude-phase, 64 different points are selected to stand for 64 different signals, and each point is encoded with six bit binary. By sending and receiving such high-frequency waves, the antenna can transmit the binary data to the satellites through electromagnetic waves.
+\subsection{Further Thoughts}
+Starlink is a satellite internet constellation operated by SpaceX, providing satellite Internet access coverage to 40 countries. It also aims for global mobile phone service after 2023.\cite{wiki_starlink}
+
+It looks like a  beautiful vision for the future, everyone on this planet can access the high-speed network. But the price is pretty expensive. The customer's monthly fee is \$99. The cost of dish antennas and routers required to connect satellites is \$549. Whether that vision could achieve success needs to be questioned.
+
+Moreover, this project has brought more problems. Astronomers claim that the number of visible satellites will outnumber visible stars and that their brightness in both optical and radio wavelengths will severely impact scientific observations.\cite{BBC_starlink} With only a speed of 150 and 500Mbit/s, whether this starlink project will change our life, I remain skeptical.
+
+
 
 \section{Problem 2}
 \subsection{Problem Restatement}
@@ -62,6 +86,7 @@ When studying the sampling process, we use the function
             0, & \mathrm{otherwise.}
         \end{array}
     \right.
+    \label{original}
 \end{equation}
 to express the sampling signal
 \begin{align}
@@ -91,10 +116,11 @@ if
 \end{equation}
 it's easy to prove Equation \ref{ans}.
 I will prove Equation (\ref{sub_ans}) below. Easy to know that
-\begin{align*}
-    \widetilde{s}(t) &= \int_{-\infty}^{\infty} s(t) e^{-j2\pi ft} \mathrm{d}t\\
-    &= \sum_{n = -\infty}^{\infty} e^{-j2\pi ft} \mathrm{d}t
-\end{align*}
+\begin{equation*}
+    \widetilde{s}(t) = \int_{-\infty}^{\infty} s(t) e^{-j2\pi ft} \mathrm{d}t
+\end{equation*}
+Because of Equation (\ref{original})
+$$\widetilde{s}(t) = \widetilde{s}(nT) = \sum_{n = -\infty}^{\infty} e^{-j2\pi ft} \mathrm{d}(nT)$$
 Because $n \in Z$, threfore
 $$
 \left\{
@@ -143,6 +169,13 @@ I think it is from the mechanically collision, but I am not sure.To avoid this, 
 \subsection{Implement}
 From $1~\mathrm{kHz}$, I made the frequency higher and lower until I cannot hear the sound.
 At last, in this way, the frequency response range of my ears is $xx \sim xx ~ \mathrm{kHz}$.
+
+\section{Problem 4}
+\subsection{What}
+
+\subsection{Why}
+
+\subsection{How}
 
 
 \bibliographystyle{ieeetr}
