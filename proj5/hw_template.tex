@@ -50,7 +50,175 @@ breakindent=.5\textwidth,frame=single,breaklines=true
 
 \end{abstract}
 
+\section{1}
 
+\section{Problem 2}
+
+\subsection{Restatement}
+In the development of the Shannon/Nyquist sampling theorem, the impulse function $\delta (t)$ is used. But $\delta (t)$ is not a practical signal. Does that mean that when applying the sampling theorem in practice, we need some approximation/modification? If yes, what is it that needs to be further done? If no, why?
+
+\subsection{Improvement}
+
+Though the $\delta (t)$ function isn't a practical signal, but it works well in our thought expriment. We should try to use some other similar signals to do the sampling, such as the square wave. Square function has finite values, but has infinite derivative values. It is also a function that hard to generate, but it is realizable. To explore whether this method is good, we should try to find out the expression of $\widetilde{x}_s(t)$ first.
+
+If we let the square wave last the length of $2\tau$, we now have
+\begin{equation}
+    \begin{aligned}
+        s(t) &= \sum_{n = -\infty}^{\infty} \mathrm{rect} (\frac{t - nT}{\tau}) \\
+        &= \sum_{n = -\infty}^{\infty}F_n e^(j2 \pi n f_s t) \\
+        &= \sum_{n = -\infty}^{\infty}\left[ \frac{1}{T} \int_{-\frac1T}^{\frac1T} \mathrm{rect}(\frac{t}{\tau}) e^{-j2 \pi n f_s t} \mathrm{d}t \right] e^{j2 \pi n f_s t} \\
+        &= \sum_{n = -\infty}^{\infty}\left[ f_s \int_{-\tau}^{\tau} e^{-j2 \pi n f_s t} \mathrm{d}t \right] e^{j2 \pi n f_s t} \\
+        &= \sum_{n = -\infty}^{\infty}2f_s\, \mathrm{sinc} \,( 2f_s n\tau)\, e^{j2 \pi n f_s t} \label{rect_st} \\
+    \end{aligned}
+\end{equation}
+
+Therefore
+\begin{equation}
+    \begin{aligned}
+        \widetilde{s}(f) &= \sum_{n = -\infty}^{\infty}\, 2f_s \mathrm{sinc}\, ( 2f_s n\tau)\, \delta(f - nf_s) \\
+    \end{aligned}
+\end{equation}
+
+And considering the expression below
+\begin{equation}
+    \begin{aligned}
+        \widetilde{x}_s(f) &= \widetilde{x}(f) * \widetilde{s}(f)\\
+        &= \widetilde{x}(f) * \sum_{n = -\infty}^{\infty}\, 2f_s \mathrm{sinc}\, ( 2f_s n\tau)\, \delta(f - nf_s) \\
+        &= \sum_{n = -\infty}^{\infty}\, 2f_s \mathrm{sinc}\, ( 2f_s n\tau)\, \left[ \widetilde{x}(f) *\delta(f - nf_s) \right] \\
+        &= \sum_{n = -\infty}^{\infty}\,2f_s \mathrm{sinc}\, ( 2f_s n\tau)\, \widetilde{x}(f - nf_s)
+    \end{aligned}
+\end{equation}
+
+If we find a LPF $H_a(f)$ whose transfer function is $1$ over $2f_s \mathrm{sinc}\, ( 2f_s\tau)$ and bandwidth $f_c$ is between $B$ and $f_s - B$. Then we have
+\begin{equation}
+    \widetilde{x}_s(f) \cdot H_a(f) = \widetilde{x}(f)
+\end{equation}
+
+Now I has proved the perfect square wave can be used in the sampling. If we find a way to make the rise time of a ladder-shaped function far less than the $\tau$, this function can be used as the square wave, which makes this kind of sampling reasonable.
+
+
+\section{Problem 3}
+
+\section{Problem 4}
+\subsection{Restatement}
+Derive the result of the Shannon/Nyquist sampling theorem and the perfect reconstruction formula which is as below.
+\subsubsection*{Nyquist sampling theorem}
+
+if no actual information is lost in the sampling process, there must be
+\begin{equation}
+    f_s \geq 2B
+\end{equation}
+in which B is the bandwidth of the original signal.
+
+\subsubsection*{Perfect Reconstruction Formula}
+\begin{equation}
+    x(t) = 2f_s T \sum_{n = -\infty}^{\infty} x(nT) ~ \mathrm{sinc} \left[ 2f_s (t - nT) \right]
+\end{equation}
+\subsection{Proof}
+\subsubsection*{Nyquist sampling theorem}
+
+When $x(t)$ is a function with the Fourier transform $\widetilde{x}(f)$
+we have the sampling functions below:
+\begin{align}
+    s(t) &= 
+    \left\{ 
+        \begin{array}{lr}
+            \delta(t - nT) & t = nT\\
+            0 & \mathrm{otherwise}
+        \end{array}
+    \right. \nonumber \\
+    &= \sum_{n = -\infty}^{\infty} \delta(t - nT)
+\end{align}
+
+Assuming that $\widetilde{x}(f)$ is the , it is easy to write the sampled $x_s(t)$ as:
+\begin{align}
+    \because x_s(t) &= x(t)\times s(t) \nonumber \\
+    &= \sum_{n = -\infty}^{\infty} x(nT) \delta(t - nT) \label{xst} \\
+    % &= x(t) \times \sum_{-\infty}^{\infty} \delta(t - nT)\\
+    % &=  \sum_{-\infty}^{\infty} x(nT)~\delta(t - nT)
+    \therefore \widetilde{x}_s(t) &= \widetilde{x}(f) * \widetilde{s}(f) \label{xn}
+    % &= X(f) * \mathcal{F}\left[\sum_{n = -\infty}^{\infty} \delta(t - nT)\right]
+\end{align}
+
+To calculate $\widetilde{s}(f)$, we should find out the Fourier series of ${s}(t)$ first.
+
+Assuming that 
+$$
+f_s = \frac{1}{T}
+$$
+$$
+{s}(t) = \sum_{n = -\infty}^{\infty} F_n e^{j2\pi n f_s ~ t}
+$$
+
+Easy to find that
+
+\begin{align*}
+    F_n &= \frac{1}{T} \int_{- \frac{1}{T}}^{\frac{1}{T}} \sum_{n = -\infty}^{\infty} \delta(t - nT) e^{-j2\pi n f_s ~ t} ~\mathrm{d}t\\
+    &= \frac{1}{T} \int_{- \frac{1}{T}}^{\frac{1}{T}} \delta(t) ~\mathrm{d}t \\
+    &= \frac{1}{T} \\
+    &= f_s
+\end{align*}
+
+Therefore
+$$
+    {s}(t) = f_s \sum_{n = -\infty}^{\infty}e^{j2\pi n f_s ~ t}
+$$
+
+Therefore
+\begin{align}
+    \widetilde{s}(f) &= f_s \sum_{n = -\infty}^{\infty} \mathcal{F} \left[ e^{j2\pi n f_s ~ t} \right]  \nonumber \\
+    &= f_s \sum_{n = -\infty}^{\infty} \delta(f - nf_s)
+    \label{sf}
+\end{align}
+
+Put Equa.\ref{sf} with Equa.\ref{xn}, we have
+
+\begin{align}
+    \widetilde{x}_s(t) &= f_s \sum_{n = -\infty}^{\infty} \widetilde{x}(f) * \delta(f - nf_s) \nonumber \\
+    &= f_s \sum_{n = -\infty}^{\infty} \widetilde{x}(f - nf_s)
+\end{align}
+
+In Fig.  we can see there are lots of shifted $\widetilde{x}(f)$ in the spectrum of $\widetilde{x}_s(t)$. The center frequencies of $\widetilde{x}(f)$ are $f_s$ away from each other, so if we don't want the spectrum of them to mix up, we should make
+$$
+f_s \leq 2B
+$$
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[keepaspectratio,width=250pt]{sampling.png}
+    \caption{Spectrum of $\widetilde{x}_s$}\label{sampling}
+\end{figure}
+
+
+% \begin{align}
+    
+% \end{align}
+
+\subsubsection*{Perfect Reconstruction Formula}
+
+To prove this equation, we need to calculate $x(t)$
+\begin{align}
+    x(t) &= \frac{1}{f_s} \mathcal{F}^{-1} \left[ \widetilde{x}(f) \right] \nonumber \\
+    &= \frac{1}{f_s} \left[ x_s(t) * h(t) \right] \label{xt}
+    % &= \left[ \left( \sum_{n = -\infty}^{\infty} \delta(t - nT) \right) \left( 2fc \mathrm{sinc} 2f_c t \right) \right]
+\end{align}
+The $h(t)$ is the transfer function of the LPF (like the one in Fig.\ref{sampling}).
+
+\begin{align}
+    \because \widetilde{h}(f) &= u(f + f_c) - u(f - f_c)\nonumber \\
+    \therefore h(t) &= \int_{-f_c}^{f_c} e^{j2 \pi ft} ~ \mathrm{d}f \nonumber\\
+    &= \left[ \frac{1}{j2 \pi t} e^{j2 \pi t f} \right]_{-f_c }^{f_c}\nonumber \\
+    &= \frac{1}{\pi t} \frac{e^{j2 \pi t f} - e^{- j2 \pi t f}}{2j}\nonumber \\
+    &= 2f_c \frac{\sin 2\pi f_c t}{2f_c \pi t} \nonumber \\
+    &= 2f_c \mathrm{sinc} 2f_c t \label{hf}
+\end{align}
+
+Put Equa.\ref{hf} in Equa.\ref{xt}, and we have Equa.\ref{xst}, therefore
+
+\begin{align}
+    x(t) &= \frac{1}{f_s} \left\{ \sum_{n = -\infty}^{\infty} x(nT) \left[ \delta(t - nT) * 2f_c ~ \mathrm{sinc} 2f_c t \right] \right\}\nonumber \\
+    &= 2 \frac{f_c}{f_s} \sum_{n = -\infty}^{\infty}  x(\frac{n}{f_s}) ~ \mathrm{sinc}\left[ 2f_c(t - \frac{n}{f_s}) \right]
+\end{align}
 
 
 
@@ -59,7 +227,7 @@ breakindent=.5\textwidth,frame=single,breaklines=true
 
 \begin{appendices}
     \section{Code Listing}
-    
+
 \end{appendices}
 
 \end{document}
