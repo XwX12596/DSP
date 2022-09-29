@@ -12,6 +12,8 @@ To do list :
 
 - [x] homework 03
 
-- [ ] homework 04
+- [x] homework 04
+
+- [ ] homework 05
 
 - [ ] Monthly Project 01
