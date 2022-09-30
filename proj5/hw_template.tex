@@ -6,7 +6,6 @@
 \usepackage[title]{appendix}
 \usepackage{listings}
 \usepackage{booktabs}
-% \usepackage{hyperref}
 
 \graphicspath{{../pic/}}
 \lstset{
@@ -65,8 +64,8 @@ If we let the square wave last the length of $2\tau$, we now have
 \begin{equation}
     \begin{aligned}
         s(t) &= \sum_{n = -\infty}^{\infty} \mathrm{rect} (\frac{t - nT}{\tau}) \\
-        &= \sum_{n = -\infty}^{\infty}F_n e^(j2 \pi n f_s t) \\
-        &= \sum_{n = -\infty}^{\infty}\left[ \frac{1}{T} \int_{-\frac1T}^{\frac1T} \mathrm{rect}(\frac{t}{\tau}) e^{-j2 \pi n f_s t} \mathrm{d}t \right] e^{j2 \pi n f_s t} \\
+        &= \sum_{n = -\infty}^{\infty}F_n e^{j2 \pi n f_s t} \\
+        &= \sum_{n = -\infty}^{\infty}\left[ \frac{1}{T} \int_{-\frac T2}^{\frac T2} \mathrm{rect}(\frac{t}{\tau}) e^{-j2 \pi n f_s t} \mathrm{d}t \right] e^{j2 \pi n f_s t} \\
         &= \sum_{n = -\infty}^{\infty}\left[ f_s \int_{-\tau}^{\tau} e^{-j2 \pi n f_s t} \mathrm{d}t \right] e^{j2 \pi n f_s t} \\
         &= \sum_{n = -\infty}^{\infty}2f_s\, \mathrm{sinc} \,( 2f_s n\tau)\, e^{j2 \pi n f_s t} \label{rect_st} \\
     \end{aligned}
@@ -82,14 +81,14 @@ Therefore
 And considering the expression below
 \begin{equation}
     \begin{aligned}
-        \widetilde{x}_s(f) &= \widetilde{x}(f) * \widetilde{s}(f)\\
-        &= \widetilde{x}(f) * \sum_{n = -\infty}^{\infty}\, 2f_s \mathrm{sinc}\, ( 2f_s n\tau)\, \delta(f - nf_s) \\
-        &= \sum_{n = -\infty}^{\infty}\, 2f_s \mathrm{sinc}\, ( 2f_s n\tau)\, \left[ \widetilde{x}(f) *\delta(f - nf_s) \right] \\
-        &= \sum_{n = -\infty}^{\infty}\,2f_s \mathrm{sinc}\, ( 2f_s n\tau)\, \widetilde{x}(f - nf_s)
+        \widetilde{x}_s(f) &= \frac{1}{f_c} \cdot \widetilde{x}(f) * \widetilde{s}(f)\\
+        &= \frac{1}{f_c} \cdot \widetilde{x}(f) * \sum_{n = -\infty}^{\infty}\, 2f_s \mathrm{sinc}\, ( 2f_s n\tau)\, \delta(f - nf_s) \\
+        &= \frac{1}{f_c} \cdot \sum_{n = -\infty}^{\infty}\, 2f_s \mathrm{sinc}\, ( 2f_s n\tau)\, \left[ \widetilde{x}(f) *\delta(f - nf_s) \right] \\
+        &= \sum_{n = -\infty}^{\infty}\,\frac{2f_s}{f_c} \mathrm{sinc}\, ( 2f_s n\tau)\, \widetilde{x}(f - nf_s)
     \end{aligned}
 \end{equation}
 
-If we find a LPF $H_a(f)$ whose transfer function is $1$ over $2f_s \mathrm{sinc}\, ( 2f_s\tau)$ and bandwidth $f_c$ is between $B$ and $f_s - B$. Then we have
+If we find a LPF $H_a(f)$ whose transfer function is $1$ over $[2f_s T \mathrm{sinc}\, ( 2f_s\tau)]$ and bandwidth $f_c$ is between $B$ and $f_s - B$. Then we have
 \begin{equation}
     \widetilde{x}_s(f) \cdot H_a(f) = \widetilde{x}(f)
 \end{equation}
@@ -188,11 +187,6 @@ $$
     \includegraphics[keepaspectratio,width=250pt]{sampling.png}
     \caption{Spectrum of $\widetilde{x}_s$}\label{sampling}
 \end{figure}
-
-
-% \begin{align}
-    
-% \end{align}
 
 \subsubsection*{Perfect Reconstruction Formula}
 
