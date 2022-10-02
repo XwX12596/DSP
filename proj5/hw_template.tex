@@ -173,6 +173,50 @@ Now I has proved the perfect square wave can be used in the sampling. If we find
 
 \section{Problem 3}
 
+\subsection{Restatement}
+Find a way to measure your maximum \emph{instantaneous} running speed, accurate to 1mm/s (millimeter per second).
+
+% \subsection{Requirement Analysis}
+% \label{prepare}
+% To achieve the accuracy, I should find a way to estimate the error value which is uncertainty (Modified by myself).
+
+% To calculate the uncertainty of a variable like speed which is the quotient of 2 other variables, we need the fomula below:
+% \begin{equation}
+%     \frac{U_z}{z} = \sqrt{(\frac{U_x}{x})^2 + (\frac{U_y}{y})^2}
+% \end{equation}
+% The $U~$ are the uncertainty of the 3 variables, and $z = \frac{x}{y}$.
+
+% And for example, we have $v = \frac{x}{t}$, I will suppose the uncertainty of the time $t$ and the distance $x$ all be the division value of the measuring instrument (For the rulers we all have, 1mm).
+
+\subsection{Electromagnetic Wave}
+The Doppler shift for relatively low velocity sources is given by
+\begin{equation}
+    \frac{\Delta f}{f} = \frac{v_s}{c}
+\end{equation}
+Because the wave incident on the moving car is Doppler shifted and an additional shift because the reflection is from a moving object. The frequency shift of the reflected wave received at the source of the wave is
+\begin{equation}
+    \frac{\Delta f}{f} = \frac{2 \cdot v_{target}}{c}
+\end{equation}
+If we need a accuracy of $1~\mathrm{mm/s} = 10^{-3}~\mathrm{m/s}$, we can choose a source of $10~\mathrm{GHz}$, so
+\begin{equation}
+    \begin{aligned}
+        \Delta f &= \frac{2f}{c} \cdot v_{target} \\
+        &= \frac{2 \times 10^{10}}{3\times10^{8}} \cdot 10^{-3}\\
+        &\approx 0.07
+    \end{aligned}
+\end{equation}
+
+This equation reflects a linear relation between $\Delta f$ and $v_{target}$.
+
+So, if we have a device that can distinguish $0.05~\mathrm{Hz}$ of the Delta of source and reflected waves' frequency, we could make the error under $1\mathrm{mm/s}$.
+
+\subsection{Ultrasound}
+In this plan, I will keep sending ultrasound wave at intervals of $T$ and record the time $t$ once the wave send and return. If we have 2 neighbouring points of $t$, and I let the difference value of two $t$ be $\Delta t$. Therefore, It's easy to know that
+\begin{equation}
+    v_{target} = \frac{v_{sound}}{2T} \cdot \Delta t
+\end{equation}
+
+
 \section{Problem 4}
 \subsection{Restatement}
 Derive the result of the Shannon/Nyquist sampling theorem and the perfect reconstruction formula which is as below.

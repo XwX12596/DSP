@@ -184,3 +184,6 @@ The methane achieve the balance of the two fuels. But also that means methane do
 The goodness of the methane is that it can be synthesized from $CO_2$. Also, the raw material of this chemical reaction which is carbon dioxide is easy to get on Mars. And if we can get $H_2O$ on Mars, this reaction can even provide excess of oxygen for human breathing. This extra bonus helps us make human settlement in the future.
 
 The scientists are now developing a new technology which can better solve the energy problem on Mars. Moreover, carbon capture on Earth is more to look forward to. If we can improve the efficiency of the reaction which change the carbon dioxide to methane, a clean renewable way of consuming the energy can be found.
+
+# Speed Test
+
