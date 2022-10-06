@@ -49,6 +49,104 @@ breakindent=.5\textwidth,frame=single,breaklines=true
     
 \end{abstract}
 
+\section{Summary and Thoughts}
+
+\section{My Sampling Method}
+
+\subsection{Restatement}
+Use the Fourier series to develop a sampling method and compare it with the Shannon/Nyquist sampling method through
+examples.
+\subsection{Improvement}
+In class, we are considering the energy of the Fourier transform of the $s(t)$, we have
+\begin{equation}
+s(t) = \sum_{n = -\infty}^{\infty} c_n \, e^{j2 \pi n fT}
+\end{equation}
+and we have
+\begin{equation*}
+\begin{aligned}
+E &= \int_{-\frac{T}{2}}^{\frac{T}{2}} \, s(t) \cdot s^*(t) \, \mathrm{d}t \\ 
+&= \int_{-\frac{T}{2}}^{\frac{T}{2}} \, \sum_{n = -\infty}^{\infty} c_n \, e^{-j2 \pi n fT} \cdot \sum_{m = -\infty}^{\infty} c_m e^{j2 \pi m fT} \, \mathrm{d}t \\ 
+&= \int_{-\frac{T}{2}}^{\frac{T}{2}} \, \sum_{n = -\infty}^{\infty} c_m \cdot c_n ~ e^{j2 \pi (n - m) fT}  \, \mathrm{d}t \\ 
+&= \sum_{n = -\infty}^{\infty} c_m \cdot c_n ~ \int_{-\frac{T}{2}}^{\frac{T}{2}} ~ e^{j2 \pi (n - m) fT}  \, \mathrm{d}t \\ 
+\end{aligned}
+\end{equation*}
+and the integral of $e^{j2 \pi (n - m) fT}$ usually be $0$ except that $n - m$, so
+$$
+E =\sum_{n = -\infty}^{\infty} c_n^2 \cdot T
+$$
+
+I will try to prove that if $E < \infty$, we must ensure that $n \to \infty, c_n \to 0$, which means 
+\begin{equation}
+E < \infty \Leftarrow  n \to \infty, c_n \to 0
+\label{eq:energyInfty}
+\end{equation}
+
+if that
+$$
+n  \to \infty, c_n \to C \, (C \neq 0)
+$$
+we can always find a big number $N$ which makes $c_n^2 > 0 \, (n > N) $, and we can easily find that
+$$
+\sum_{n = N}^{\infty} c_n^2 > (\infty - N) \cdot c^2_{n(min)} \to \infty
+$$
+
+So, $E\to \infty$ when $n  \to \infty, c_n \to C \, (C \neq 0)$
+Therefore, Equa.\ref{eq:energyInfty} is proved.
+And we know that
+\begin{equation}
+    c_n = \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} s(t) \, e^{-j2\pi n f_s t} \, \mathrm{d}t
+\end{equation}
+
+So, as I find out last week in my weekly report, ff we let the square wave last the length of $2\tau$, we now have
+\begin{equation}
+    \begin{aligned} s(t) & = \sum_{n = -\infty}^{\infty} \mathrm{rect} (\frac{t - nT}{\tau}) \\
+             & = \sum_{n =-\infty}^{\infty}F_n e^{j2 \pi n f_s t}  \\
+             & = \sum_{n = -\infty}^{\infty}\left[ \frac{1}{T} \int_{-\frac T2}^{\frac T2}
+              \mathrm{rect}(\frac{t}{\tau}) e^{-j2 \pi n f_s t} \mathrm{d}t \right] e^{j2 \pi n f_s t} \\
+             & = \sum_{n = -\infty}^{\infty}\left[ f_s \int_{-\tau}^{\tau} e^{-j2 \pi n f_s t} \mathrm{d}t \right] e^{j2 \pi n f_s t}  \\
+             & = \sum_{n = -\infty}^{\infty}2f_s\, \mathrm{sinc} \,( 2f_s n\tau)\, e^{j2 \pi n f_s t} \\
+             \label{eq:samplingSquare}
+    \end{aligned}
+\end{equation}
+
+Here, 
+\begin{align*}
+\begin{array}{lrl}
+s(t) &=& \sum_{n = -\infty}^{\infty} \mathrm{rect} (\frac{t - nT}{\tau}) \\ 
+c_n  &=& 2f_s\, \mathrm{sinc} \,( 2f_s n\tau) < \infty
+\end{array}
+\end{align*}  
+
+% According to the document on the Internet\cite{sinc_sum}, I know that
+% \begin{equation}
+% \sum_{n = -\infty}^{\infty} \, sinc(nT) = \frac{\pi}{T}
+% \end{equation}
+
+Therefore
+\begin{equation*}
+\begin{aligned}
+E &= T \cdot \sum_{n = -\infty}^{\infty} c_n^2 \\ 
+&= T \cdot \sum_{n = -\infty}^{\infty} sinc^2(2f_sn\tau)
+\end{aligned}
+\end{equation*}
+
+In help of code, I know that
+$$
+\int_{-\infty}^{\infty} sinc^2(2f_sn\tau) = \frac{\pi}{2f_s\tau} < \infty
+$$
+
+Therefore
+$$
+\sum_{n = -\infty}^{\infty} sinc^2(2f_sn\tau) < \infty
+$$
+we can now say that the $s(t)$ mentioned in Equa.\ref{eq:samplingSquare} is energy-limited.
+
+If we look back on the $\delta(t)$ sampling, we have the energy $E$ of $s(t)$:
+\begin{equation}
+E = \sum_{n = -\infty}^{\infty} T \to \infty
+\end{equation}
+which is not realizable.
+
 \section{Conclusion}
     \subsubsection*{}
     \subsubsection*{}
@@ -56,9 +154,16 @@ breakindent=.5\textwidth,frame=single,breaklines=true
 % \bibliographystyle{ieeetr}
 % \bibliography{../bib/database}
 
-% \begin{appendices}
-%     \section{Code Listing}
+\begin{appendices}
+    \section{Code Listing}
+    \begin{python}
+    import numpy as np
+    from sympy import symbols, integrate, sinc
 
-% \end{appendices}
+    x, a = symbols('x, a')
+
+    print(integrate((sinc(a*x))**2,(x,-np.inf,np.inf)))
+    \end{python}
+\end{appendices}
 
 \end{document}
