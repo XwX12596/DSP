@@ -90,7 +90,7 @@ $$
 \sum_{n = N}^{\infty} c_n^2 > (\infty - N) \cdot c^2_{n(min)} \to \infty
 $$
 
-So, $E\to \infty$ when $n  \to \infty, c_n \to C \, (C \neq 0)$
+So, $E\to \infty$ when $n  \to \infty, c_n \to C \, (C \neq 0)$.
 Therefore, Equa.\ref{eq:energyInfty} is proved.
 And we know that
 \begin{equation}
@@ -113,7 +113,7 @@ Here,
 \begin{align*}
 \begin{array}{lrl}
 s(t) &=& \sum_{n = -\infty}^{\infty} \mathrm{rect} (\frac{t - nT}{\tau}) \\ 
-c_n  &=& 2f_s\, \mathrm{sinc} \,( 2f_s n\tau) < \infty
+c_n  &=& 2f_s\, \mathrm{sinc} \,( 2f_s n\tau)
 \end{array}
 \end{align*}  
 
@@ -130,15 +130,15 @@ E &= T \cdot \sum_{n = -\infty}^{\infty} c_n^2 \\
 \end{aligned}
 \end{equation*}
 
-In help of code, I know that
+In help of wolfram, I know that when a is real:
 $$
-\int_{-\infty}^{\infty} sinc^2(2f_sn\tau) = \frac{\pi}{2f_s\tau} < \infty
+\sum_{n = -\infty}^{\infty} sinc^2(a\times n) < \infty
 $$
-
 Therefore
-$$
+\begin{equation}
 \sum_{n = -\infty}^{\infty} sinc^2(2f_sn\tau) < \infty
-$$
+\end{equation}
+
 we can now say that the $s(t)$ mentioned in Equa.\ref{eq:samplingSquare} is energy-limited.
 
 If we look back on the $\delta(t)$ sampling, we have the energy $E$ of $s(t)$:
