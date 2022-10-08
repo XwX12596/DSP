@@ -130,10 +130,20 @@ E &= T \cdot \sum_{n = -\infty}^{\infty} c_n^2 \\
 \end{aligned}
 \end{equation*}
 
-In help of wolfram, I know that when a is real:
-$$
-\sum_{n = -\infty}^{\infty} sinc^2(a\times n) < \infty
-$$
+\newpage
+
+In help of Wolfram Alpha \cite{sinc_convergence}, I know that when a is real, shown in Fig.~\ref{fig:sinc_convergence}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[keepaspectratio,width=250pt]{../pic/sinc_convergence.png}
+    \caption{Convergence of $sinc^2(a\times n)$}
+    \label{fig:sinc_convergence}
+\end{figure}
+
+% $$
+% \sum_{n = -\infty}^{\infty} sinc^2(a\times n) < \infty
+% $$
 Therefore
 \begin{equation}
 \sum_{n = -\infty}^{\infty} sinc^2(2f_sn\tau) < \infty
@@ -151,8 +161,8 @@ which is not realizable.
     \subsubsection*{}
     \subsubsection*{}
 
-% \bibliographystyle{ieeetr}
-% \bibliography{../bib/database}
+\bibliographystyle{ieeetr}
+\bibliography{../bib/database}
 
 \begin{appendices}
     \section{Code Listing}
