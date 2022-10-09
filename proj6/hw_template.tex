@@ -51,12 +51,43 @@ breakindent=.5\textwidth,frame=single,breaklines=true
 
 \section{Summary and Thoughts}
 
+\subsection{Bluetooth}
+In this video, we know about the technique about Bluetooth, I found something special about the Bluetooth as below.
+
+\subsubsection*{Points Worth Noting}
+\begin{enumerate}
+    \item Working on $123~\mathrm{mm}$ wave length EM wave
+    \item Using $120.7~\mathrm{mm}$ represent 1, $124.9 ~ \mathrm{mm}$ represent 0
+    \item Sending a Million Bits per Second in the format of {Packets} \label{enum:packets}
+    \item Having $79$ Communication Channel and {shifting} among them continuously \label{enum:shifting}
+\end{enumerate}
+
+In these points, I want to write more about \ref{enum:packets}. and \ref{enum:shifting}.
+
+\subsubsection*{Packets}
+The packets are a set of lots of $'0'$ and $'1'$. 
+
+First $72$ bits are called {Access Code}, which are used to synchronize smartphone and earbuds to make sure that it's your specific earbuds that is that received the message. 
+
+Next $54$ bits are called {Header}. These data are used to decide how much data should be transfer next.
+
+Last $136 \sim 8186$ bits are called {Payload}. There will be control signals like pause and play or music data in this part. So, this part can be long and short which is decided by the {Header} part.
+
+\subsubsection*{Frequency Hopping Spread Spectrum}
+My understanding is there is a list of the number of $79$ Communication Channels. The phone and the earbuds should use different channel once a packet is transferred. So, the list decides in which order the Communication Channels are used.
+
+\subsubsection*{Time slots}
+The Bluetooth protocol states that a packet should be transferred in $625~ \mathrm{\mu s}$, and the earbuds and the phone alternately use a time slot for data transmission.
+
+
+\subsection{2}
+
 \section{My Sampling Method}
 
 \subsection{Restatement}
 Use the Fourier series to develop a sampling method and compare it with the Shannon/Nyquist sampling method through
 examples.
-\subsection{Improvement}
+\subsection{Derivation}
 In class, we are considering the energy of the Fourier transform of the $s(t)$, we have
 \begin{equation}
 s(t) = \sum_{n = -\infty}^{\infty} c_n \, e^{j2 \pi n fT}
@@ -65,7 +96,7 @@ and we have
 \begin{equation*}
 \begin{aligned}
 E &= \int_{-\frac{T}{2}}^{\frac{T}{2}} \, s(t) \cdot s^*(t) \, \mathrm{d}t \\ 
-&= \int_{-\frac{T}{2}}^{\frac{T}{2}} \, \sum_{n = -\infty}^{\infty} c_n \, e^{-j2 \pi n fT} \cdot \sum_{m = -\infty}^{\infty} c_m e^{j2 \pi m fT} \, \mathrm{d}t \\ 
+% &= \int_{-\frac{T}{2}}^{\frac{T}{2}} \, \sum_{n = -\infty}^{\infty} c_n \, e^{-j2 \pi n fT} \cdot \sum_{m = -\infty}^{\infty} c_m e^{j2 \pi m fT} \, \mathrm{d}t \\ 
 &= \int_{-\frac{T}{2}}^{\frac{T}{2}} \, \sum_{n = -\infty}^{\infty} c_m \cdot c_n ~ e^{j2 \pi (n - m) fT}  \, \mathrm{d}t \\ 
 &= \sum_{n = -\infty}^{\infty} c_m \cdot c_n ~ \int_{-\frac{T}{2}}^{\frac{T}{2}} ~ e^{j2 \pi (n - m) fT}  \, \mathrm{d}t \\ 
 \end{aligned}
@@ -77,7 +108,7 @@ $$
 
 I will try to prove that if $E < \infty$, we must ensure that $n \to \infty, c_n \to 0$, which means 
 \begin{equation}
-E < \infty \Leftarrow  n \to \infty, c_n \to 0
+E < \infty \Rightarrow  n \to \infty, c_n \to 0
 \label{eq:energyInfty}
 \end{equation}
 
@@ -93,11 +124,11 @@ $$
 So, $E\to \infty$ when $n  \to \infty, c_n \to C \, (C \neq 0)$.
 Therefore, Equa.\ref{eq:energyInfty} is proved.
 And we know that
-\begin{equation}
+\begin{equation*}
     c_n = \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} s(t) \, e^{-j2\pi n f_s t} \, \mathrm{d}t
-\end{equation}
+\end{equation*}
 
-So, as I find out last week in my weekly report, ff we let the square wave last the length of $2\tau$, we now have
+So, as I find out last week in my weekly report, if we let the square wave last the length of $2\tau$, we now have
 \begin{equation}
     \begin{aligned} s(t) & = \sum_{n = -\infty}^{\infty} \mathrm{rect} (\frac{t - nT}{\tau}) \\
              & = \sum_{n =-\infty}^{\infty}F_n e^{j2 \pi n f_s t}  \\
@@ -112,7 +143,7 @@ So, as I find out last week in my weekly report, ff we let the square wave last 
 Here, 
 \begin{align*}
 \begin{array}{lrl}
-s(t) &=& \sum_{n = -\infty}^{\infty} \mathrm{rect} (\frac{t - nT}{\tau}) \\ 
+s(t) &=& \sum\limits_{n = -\infty}^{\infty} \mathrm{rect} (\frac{t - nT}{\tau}) \\ \\
 c_n  &=& 2f_s\, \mathrm{sinc} \,( 2f_s n\tau)
 \end{array}
 \end{align*}  
@@ -123,16 +154,18 @@ c_n  &=& 2f_s\, \mathrm{sinc} \,( 2f_s n\tau)
 % \end{equation}
 
 Therefore
-\begin{equation*}
+\begin{equation}
 \begin{aligned}
 E &= T \cdot \sum_{n = -\infty}^{\infty} c_n^2 \\ 
 &= T \cdot \sum_{n = -\infty}^{\infty} sinc^2(2f_sn\tau)
 \end{aligned}
-\end{equation*}
+\label{eq:EnergySeries}
+\end{equation}
 
 \newpage
 
-In help of Wolfram Alpha \cite{sinc_convergence}, I know that when a is real, shown in Fig.~\ref{fig:sinc_convergence}.
+In help of Wolfram Alpha \cite{sinc_convergence}, I know that when a is real, this series (Eq.~\ref{eq:EnergySeries}) converges. 
+The result is shown in Fig.~\ref{fig:sinc_convergence}.
 
 \begin{figure}[htbp]
     \centering
@@ -144,18 +177,38 @@ In help of Wolfram Alpha \cite{sinc_convergence}, I know that when a is real, sh
 % $$
 % \sum_{n = -\infty}^{\infty} sinc^2(a\times n) < \infty
 % $$
+
 Therefore
-\begin{equation}
+\begin{equation*}
 \sum_{n = -\infty}^{\infty} sinc^2(2f_sn\tau) < \infty
-\end{equation}
+\end{equation*}
 
 we can now say that the $s(t)$ mentioned in Equa.\ref{eq:samplingSquare} is energy-limited.
+
+And back to Equa.\ref{eq:EnergySeries}, we can control the order of the sum to improve this equation because the $c_n$ decrease rapidly. Therefore
+$$
+E = T \cdot \sum_{n = -N}^{N} sinc^2(2f_sn\tau)
+$$
+So, let's use python to draw a picture to see more clearly, see Fig.~\ref{fig:sincAndLine}.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=3 in]{../pic/sincAndLine.png}
+    \caption{Orders of Sinc Function}
+    \label{fig:sincAndLine}
+\end{figure}
+It's easy to find that if we make $n$ in this picture less than $5$ or even $2$ , little energy will be lost. This means we can rewrite the Equa.~\ref{eq:EnergySeries} like
+\begin{equation}
+E = T \cdot \sum_{n = -N}^{N} sinc^2(2f_sn\tau) \qquad N = [\frac{5}{2f_s \tau}] + 1
+\label{eq:improvedEnergy}
+\end{equation}
 
 If we look back on the $\delta(t)$ sampling, we have the energy $E$ of $s(t)$:
 \begin{equation}
 E = \sum_{n = -\infty}^{\infty} T \to \infty
+\label{eq:impulseEnergy}
 \end{equation}
-which is not realizable.
+This (using $\sum \delta(t)$ to sampling) is not realizable.
 
 \section{Conclusion}
     \subsubsection*{}
@@ -165,15 +218,22 @@ which is not realizable.
 \bibliography{../bib/database}
 
 \begin{appendices}
-    \section{Code Listing}
-    \begin{python}
+\section{Code Listing}
+\begin{python}
     import numpy as np
-    from sympy import symbols, integrate, sinc
+    from matplotlib import pyplot as plt
 
-    x, a = symbols('x, a')
+    n = np.arange(0, 10, 0.05)
+    y = (np.sinc(n))**2
+    line = [0.01 for x in n]
 
-    print(integrate((sinc(a*x))**2,(x,-np.inf,np.inf)))
-    \end{python}
+    fig = plt.figure()
+    plt.plot(n, y, linewidth=0.8, label="y = [sinc(n)]^2")
+    plt.plot(n, line, linewidth=0.8, label="y = 0.01")
+    plt.legend()
+    plt.show()
+\end{python}
+
 \end{appendices}
 
 \end{document}
