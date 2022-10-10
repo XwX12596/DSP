@@ -33,8 +33,35 @@
 - Differential Quadrature Phase Shift Keying
 - time slot
 - one by one
+- 
 
 ## Memory
 
 - train my brain to remember better
 - flipchart
+- formula of how you can learn anything and master anything in a fun easy
+- the secret of success
+  - passionate
+  - clear goals
+  - good purpose
+  - hard working
+  - ==life-long learning==
+  - keep on learning new things on a regular basis
+- Your learning ability decides your earning capacity
+  - learn more means earn more
+  - not shallow learning
+  - a good book
+  - implement it and benefit from this
+  - deep learning
+- For true mastery, you need to focus more on the OUTPUT rather than the  INPUT
+  - LEARN
+  - use it or lose it
+  - multi-tasking
+  - kill momentum motivation
+  - single tasking
+  - REFLECT
+  - IMPLEMENT implement
+  - inspired
+  - illusion of competence
+  - make some actions
+  - SHARE

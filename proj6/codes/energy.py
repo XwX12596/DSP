@@ -2,7 +2,7 @@ import numpy as np
 from sympy import sinc
 from matplotlib import pyplot as plt
 
-n = np.arange(0, 10, 0.05)
+n = np.arange(0.7, 5, 0.01)
 y = (np.sinc(n))**2
 line = [0.01 for x in n]
 
