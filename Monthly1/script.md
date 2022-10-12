@@ -1,42 +1,25 @@
-- 背景解释
 
-- `raspberryPi`
-  - `armv7l`
-
-- `mjpg-streamer`
-
-- `rpi-mjpg-streamer`
-
-- `frp`
-
-
-- 下载镜像
+- Download system image
   - [iso](https://www.raspberrypi.com/software/operating-systems/)
-
 - 使用官方镜像烧录器烧录
 
   - ![image-20221010164314754](script.assets/image-20221010164314754.png)
 
-  - [installer](https://www.raspberrypi.com/software/)
+  - [download the installer](https://www.raspberrypi.com/software/)
+- plug the Ethernet into the Raspberry Pi
 
-- 树莓派使用LAN口连接路由器
-
-  - ![image-20221010170232826](script.assets/image-20221010170232826.png)
-
-- 连接上了，在小米路由器中查看本地ip
-  - ![image-20221010170508782](image-20221010170508782.png)
-
-- Wi-Fi 不启用
-
-- 登录
+- connected，find the ip in the manage system of router![image-20221010170508782](script.assets/image-20221010170508782.png)
+- log-in
 
 ```bash
       ssh -l xmh 192.168.31.189
 ```
 
-- `raspi-config` 打开摄像头，`Interface Options`
+- `sudo raspi-config`
 
 - ![image-20221010172019967](script.assets/image-20221010172019967.png)
+
+-  `Interface Options`
 
 - ![image-20221010172120305](script.assets/image-20221010172120305.png)
 
@@ -81,9 +64,36 @@ However the following packages replace it:
 
 - web端已经通过`rpi-mjpg-streamer`实现
 
-- [static](http://mc.xwxstudio.com/?action=snapshot)
+- [static-snapshot](http://mc.xwxstudio.com/?action=snapshot)
 
 - 通过`requests`包获取图片
 
-- 为了`opencv`更好工作，尝试使用`picamera`进行相机控制
+- 为了日后后端代码更好工作，尝试使用`opencv`进行相机控制
+
+- 更新`pip`源，`pip3 install pip -U`
+- `sudo apt-get install python3-opencv`
+- `sudo apt-get install libopencv-dev`
+
+- `pip3 install numpy --upgrade`
+
+- `sudo apt-get install libatlas-base-dev`
+
+```python
+import cv2
+import numpy
+
+#init
+camera = cv2.VideoCapture(0)
+
+#read the camera
+ret,img = camera.read()
+
+#保save to snapshot.jpg
+cv2.imwrite('img.jpg',img)
+cv2.imwrite('gray.jpg',gray)
+
+#release the camera
+camera.release()
+cv2.destroyAllWindows()
+```
 
