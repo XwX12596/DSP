@@ -1,0 +1,95 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, cite, algorithmic, url, braket}
+\usepackage{graphicx}
+\usepackage{pythonhighlight}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage[title]{appendix}
+\usepackage{listings}
+\usepackage{booktabs}
+
+\graphicspath{{../pic/}}
+\lstset{
+language=[ANSI]{C},
+showtabs=true,
+tab=,
+tabsize=2,
+basicstyle=\ttfamily\footnotesize,%\setstretch{.5},
+stringstyle=\color{stringcolour},
+showstringspaces=false,
+alsoletter={1234567890},
+otherkeywords={\%, \}, \{, \&, \|},
+keywordstyle=\color{keywordcolour}\bfseries,
+upquote=true,
+morecomment=[s]{/*}{*/},
+commentstyle=\color{commentcolour}\slshape,
+literate=*%
+{=}{{\literatecolour=}}{1}%
+{-}{{\literatecolour-}}{1}%
+{+}{{\literatecolour+}}{1}%
+{*}{{\literatecolour*}}{1}%
+{!}{{\literatecolour!}}{1}%
+{[}{{\literatecolour[}}{1}%
+{]}{{\literatecolour]}}{1}%
+{<}{{\literatecolour<}}{1}%
+{>}{{\literatecolour>}}{1}%
+% {>>>}{\pythonprompt}{3}%
+,%
+frame=trbl,
+rulecolor=\color{black!40},
+backgroundcolor=\color{white},
+breakindent=.5\textwidth,frame=single,breaklines=true
+}
+
+\begin{document}
+\title{DSP Homework 07}
+\author{Xu, Minhuan}
+\maketitle
+\tableofcontents
+\begin{abstract}
+
+\end{abstract}
+
+\section{Pros and Cons of Shannon/Nyquist sampling method}
+\subsection{Positive}
+\subsubsection*{Ideal and easy to understand}
+In Shannon/Nyquist sampling method, we only consider things that are ideal. Like $\delta(t)$, and the ideal LPF. It is mathematically simple and friendly to beginners.
+\subsubsection*{Easy to calculate}
+Using Fourier series and Fourier transform, we can easily find the distribution of energy on the frequency domain since the $\delta$ function has nice special properties.
+
+\subsubsection*{No Error}
+Through calculation, we know that if we make $f_s$ and $f_c$ have proper values, a perfectly the same frequency spectrum can be reconstructed. This is good because we don't need to worry about making mistake through communication.
+
+\subsubsection*{Easy to Reconstruct}
+Assuming that we have a sampled signal, all we should do is to find the bandwidth, and to let the sampled signal pass a LPF. Then, a perfectly reconstructed signal is complete.
+
+\subsection{Negative}
+\subsubsection*{Non-existent signal}
+Though the sampling progress is theoretically easy to carry out, the $\delta$ function is not so easy to generate. Mathematically, it has infinite energy in \emph{one} period. According to the law of conservation of energy, we can't make a signal like the $\delta(t)$, see (\ref{eq:energyOfPulse}).
+\begin{equation}
+E = \sum_{n = -\infty}^{\infty} T \to \infty
+\label{eq:energyOfPulse}
+\end{equation}
+
+\subsubsection*{Waste of bandwidth}
+In practical usage, engineers cannot find a ideal LPF, especially which has infinite differential (has a sharp drop). All we can find is those which have smooth differential, and LPF like these will occupy more bandwidth of channels. Then, because
+
+$$
+f_c < f_s - W
+$$
+
+Therefore, the sampling frequency $f_s$ need to be larger which is not good.
+
+
+
+\section{Conclusion}
+
+
+
+\bibliographystyle{ieeetr}
+\bibliography{../bib/database}
+
+\begin{appendices}
+
+\end{appendices}
+
+\end{document}
