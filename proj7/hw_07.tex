@@ -49,6 +49,39 @@ breakindent=.5\textwidth,frame=single,breaklines=true
 
 \end{abstract}
 
+\section{Videos}
+\subsection{Image Processing in Mice}
+There are a lot of parts which cooperate with each other, but in this video we mainly know about things about image processing unit which is called Image Acquisition System (IAS) and interpolation.
+
+\subsubsection{IAS}
+
+The IAS contains a infrared LED, a pair of lenses, and the image pixel array. 
+
+About the LED, we can't see the infrared ray with our eyes, but many years ago we do see some light came out from the bottom of our mice, according to the video, I know that is red-colored laser which can work like today's mice but not that good.
+
+And the pair of lenses, one is to refract the ray in order to let the ray hits the surface in a very small angle, the other is to receive the reflected ray. About the reflected ray, since it is shot on the rough surface in a small angle, so the high part of the surface will block the light which would hit the lower place if the surface was flat. So we can simply consider the higher place will be bright, and the lower place will be rather dim.
+
+The last part is the image pixel array. This can be called a image sensor by itself. It can translate the light and the shade into a black and white picture. This picture won't be stored in the mouse, but be compared with the picture transmitted into the image sensor. So, how do the mouse know the displacement in $x$ and $y$?
+
+It turns out that in the mouse there's a DSP chip which keep calculating the cross correlation of previous and present picture shot by the image sensor. If found the cross correlation is not large enough, which means the mouse has made a move, the processor will move the image in $x-y$ plane and calculate the cross correlation again. The processor will keep do that until there's a maximum of the value of cross correlation, then, only the corresponding displacement of the maximum is what the processor cares. The IAS usually takes $17,000$ pictures of the surface every second, and this means that the processor will compares the present picture to the previous picture every $59 ~\mathrm{\mu s}$. But the chip in mice will only reports to the computer every $1 ~\mathrm{\mu s}$.
+
+\subsubsection{Interpolation}
+In the level of hardware, some mice have image sensors with $40 \times 40$ pixels. So, the raw data from that sensor will be $1,600$ digits which range in $0 \sim 4095$ and represent the intensity of light. But we can still use interpolation to get more useful digits. That means apart from real points \emph{see} by the sensor, the chips in the mice will \emph{imagine} more points. The value of those \emph{imagined} points are determined by the real points around.
+
+\subsection{Starch-Based Diets make us healthy}
+The lecturer is a doctor who has been searching for the way of making people healthy for over 40 years. He want to convince us that it is good for human to have starch-based diets in three aspects as below:
+
+\begin{enumerate}
+	\item Throughout human history, bulk of people have had the starch-based diets.
+	\item People who from the areas in which people have the habit of living on starch have less sickness even though they has moved to meat-eating areas.
+	\item Children, military, workers, and many other people in the USA are getting overweight and sick.
+\end{enumerate}
+
+\subsection{Our Planet}
+
+
+
+
 \section{Pros and Cons of Shannon/Nyquist sampling method}
 \subsection{Positive}
 \subsubsection*{Ideal and easy to understand}
