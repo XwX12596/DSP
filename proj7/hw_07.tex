@@ -57,7 +57,7 @@ There are a lot of parts which cooperate with each other, but in this video we m
 
 The IAS contains a infrared LED, a pair of lenses, and the image pixel array. 
 
-About the LED, we can't see the infrared ray with our eyes, but many years ago we do see some light came out from the bottom of our mice, according to the video, I know that is red-colored laser which can work like today's mice but not that good.
+About the LED, we can't see the infrared ray with our eyes, but many years ago we do see some light came out from the bottom of our mice.
 
 And the pair of lenses, one is to refract the ray in order to let the ray hits the surface in a very small angle, the other is to receive the reflected ray. About the reflected ray, since it is shot on the rough surface in a small angle, so the high part of the surface will block the light which would hit the lower place if the surface was flat. So we can simply consider the higher place will be bright, and the lower place will be rather dim.
 
@@ -78,9 +78,28 @@ The lecturer is a doctor who has been searching for the way of making people hea
 \end{enumerate}
 
 \subsection{Our Planet}
+This episode of Our Planet is about the creatures in the polar regions.
 
+In Antarctica, krill is eaten by Gentoo Penguins and humpback whales, Gentoo Penguins are eaten by killer whales. However, with warming temperatures and disappearing sea ice, krill which depend on the sea ice algae have been getting less and less.
 
+In island of South Georgia, the camera tells us that how difficult it is for the king penguins to reach the nursery of their from the sea. There are leopard seals who want to eat them, elephant seals who will flatten them and others' chicks who are mixed with their own chicks.
 
+In Arctic, polar bears and seals suffer from the loss of ice. Moreover, the walrus who once live on the ice, will occupy every square centimeters just to lie down on a tiny island. Some of the even climb onto a hill and drop from that place.
+
+For thousands of years, there's been a balance in the advance and retreat of the sea ice, but that is no longer the case. All we can know from these scenes, many are starting to lose the place where they rest, breed, hunting.
+
+\subsection{Further Thoughts}
+Since the mice judge the displacement through the image, so I wonder if I move a mouse so fast that a picture transmitted into the chips is total different from the previous one, it will be lost and make mistake. So I want to calculate how fast can the mouse be lost. But since I cannot make my mouse move so fast, I don't want to implement this experiment.
+
+First, from the video I know that every $\mu\mathrm{s}$ the sensor will take a picture of the surface and report it every $59 ~ \mu\mathrm{s}$, so I think the during time here will be $59 ~ \mu \mathrm{s}$. 
+
+Second, the length of my mouse's lens is about $1 \sim 4 ~ \mathrm{mm}$, so the speed of my mouse must beyond:
+$$
+v = \frac{x}{t} = \frac{1 \times 10^{-3}}{6 \times 10^{-5}} \approx 16.6 ~\mathrm{m/s}
+$$
+to let my mouse to be lost.
+
+Finally, I referred the data on the official website and found that the official value of the maximum of speed is about $10.2 ~\mathrm{m/s}$, and that's close.
 
 \section{Pros and Cons of Shannon/Nyquist sampling method}
 \subsection{Positive}
