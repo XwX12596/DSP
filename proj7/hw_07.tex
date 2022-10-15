@@ -46,7 +46,12 @@ breakindent=.5\textwidth,frame=single,breaklines=true
 \maketitle
 \tableofcontents
 \begin{abstract}
-
+\subsubsection*{Videos}
+After summing up the videos, I find out the maximum of speed of my mouse.
+\subsubsection*{Pros and Cons of Shannon/Nyquist sampling method}
+I will explain what and why the Shannon/Nyquist sampling method is good and also bad.
+\subsubsection*{Trajectory of My Phone}
+Using a cutting board as the background of the video, I draw the trajectory of my phone by a method which is similar with IAS in mice.
 \end{abstract}
 
 \section{Videos}
@@ -131,17 +136,92 @@ $$
 
 Therefore, the sampling frequency $f_s$ need to be larger which is not good.
 
+\section{The Trajectory of My Phone}
 
+\subsection{Implement}
+Since the Image Acquisition System in mice determine the displacement through the relative $x-y$ coordinates, what I need first is an axis. So I find out a cutting board, see Fig.~\ref{fig:cuttingBoard}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=5 in]{../pic/cuttingBoard.jpg}
+	\caption{My Cutting Board}
+	\label{fig:cuttingBoard}
+\end{figure}
+
+So I use this board as my background of the video. Next I want to specify how I can know the shift in $x, y, z$. First, for $x, y$, I want to use the middle point in the video as the place where my phone is, and compare the present frame and the previous frame in order to decide the displacement horizontally. Vertically, I cannot find other good way to represent the height, so I decide to use the square root of the number of blocks in one cut, which means when the there's 16 blocks in one frame, the \emph{height} will be $4$ \emph{height units} (referred as hu) in my estimation. Afterwards, I measured that when my phone was at the height of $10~ \mathrm{cm}$, the $z$ was about $8.5 \mathrm~{hu}$ in my theory. So I will draw my trajectory of my phone using centimeters rather than the hu which is defined by me.  
+
+About the sampling rate (sample with my eyes), I was going to sample every 10 frames (1/6 second for a $60$ fps video), but there are so many digits for me to write down and that makes me give up. In turn, I try to decrease the points I need to write down by the way of judging the value of the points. If the point is important, like the corner, I will keep it, otherwise, I ignore it. In a word, I was trying my best to keep the shape of the trajectory and decrease the points I need to write down.
+
+Consider things above, I draw the trajectory with python, see Fig.~\ref{fig:trajectoryOfMyPhone}.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=4 in]{../pic/trajectoryOfMyPhone.png}
+	\caption{Trajectory of My Phone}
+	\label{fig:trajectoryOfMyPhone}
+\end{figure}
+
+\subsection{Error Analysis}
+For the $x$ and $y$, I record the data by the format like \verb|an integer + quarters |, so the error will be within $0.5 ~ \mathrm{cm}$.
+
+For the $y$, the raw data is the number of blocks. The error will be about $10$ blocks, and convert to hu is $3.16 ~ \mathrm{hu}$, and convert to cm is $2.686~ \mathrm{cm}$
 
 \section{Conclusion}
-
-
-
+\subsubsection*{Videos}
+The speed of my mouse is $16.6 ~\mathrm{m/s}$ in my calculation and $10.2 ~\mathrm{m/s}$ in official document.
+\subsubsection*{Pros and Cons of Shannon/Nyquist sampling method}
+Shannon/Nyquist sampling method is so ideal that it is easy to learn but hard to realize.
+\subsubsection*{Trajectory of My Phone}
+The trajectory is not so smooth because I don't sample enough, but it is roughly correct. The error of $x, y, z$ are all beneath a few centimeters.
 \bibliographystyle{ieeetr}
 \bibliography{../bib/database}
 
 \begin{appendices}
+\section{Code Listing}
+\begin{python}
+from matplotlib import pyplot as plt
+import numpy as np
 
+inc = [(-1.3, -0.4, 180),
+(-4, 0.1, 180),
+(-1.25, 0.4, 180),
+(0.3, 4.25, 180),
+(-0.75, 6.5, 156),
+(1, 2, 135),
+(-4.75, 0.5, 144),
+(-2.45, -4, 135),
+(-6.5, 8.75, 104),
+(1, 0, 228),
+(0.25, 0.5, 264),
+(1.5, -0.5, 264),
+(7, 0, 270),
+(3.75, 0, 270),
+(-2.25, 12.25, 252),
+(0.5, 2, 280),
+(-1.25, -0.25, 264),
+(-5.75, 1, 286),
+(4.75, 0.75, 264),
+(-1, -2, 84),
+(8.5, -12.75, 75)]
+
+point = [0, 0, 0]
+x = []
+y = []
+z = []
+
+for p in inc:
+    point[0] = point[0] + p[0]
+    point[1] = point[1] + p[1]
+    point[2] = np.sqrt(p[2]) * 0.85
+    x.append(point[0])
+    y.append(point[1])
+    z.append(point[2])
+
+plt.figure()
+ax = plt.axes(projection='3d')
+ax.plot(x, y, z)
+plt.show()
+\end{python}
 \end{appendices}
 
 \end{document}

@@ -114,3 +114,11 @@
 - we're starting to lose one of our planet's protective white shields.
 - For thousands of years, there's been a balance in the advance and retreat of the sea ice, but that is no longer the case.
 - Today, during the summer months, there is 40 percent less sea ice cover than there was in 1980.
+
+## Trajectory Recording
+
+- cutting board
+- move slow
+- one block represent one unit
+- because of height change 
+- [video](https://raw.githubusercontent.com/XwX12596/image/main/img/202210152054259.mp4)
