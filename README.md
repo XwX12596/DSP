@@ -1,7 +1,9 @@
 # Digital Signal Processing Homework
 
-> もう、どうでもいいだよ。
 >随便吧。
+>
+>もう、どうでもいいだよ。
+>
 >Whatever.
 
 
