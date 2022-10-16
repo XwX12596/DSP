@@ -156,8 +156,6 @@ So I use this board as my background of the video. Next I want to specify how I 
 
 Vertically, I take inspiration from similar triangular pyramid in which the area of the bottom is proportional to the height (see Fig.~\ref{fig:blocksAndPyramid}(a)), so I decide to use the square root of the number of blocks in one cut (represents the area of the bottom), which means when the there's 16 blocks in one frame, the \emph{height} will be $4$ \emph{height units} (referred as hu) in my estimation. Another example please see Fig.~\ref{fig:blocksAndPyramid}(b). 
 
-Afterwards, I measured that when my phone was at the height of $10~ \mathrm{cm}$, the $z$ was about $8.5 \mathrm~{hu}$ in my theory. So I will draw my trajectory of my phone using centimeters rather than the hu which is defined by me.  
-
 \begin{figure}[!h]
 	\centering
 	\subfigure[Triangular Pyramid]{\includegraphics[height=3 in]{../pic/tri-pyramid.png}}
@@ -168,6 +166,15 @@ Afterwards, I measured that when my phone was at the height of $10~ \mathrm{cm}$
 \end{figure}
 
 \subsubsection{Selection of Sampling Points}
+
+Afterwards, I measured that when my phone was at the height of $10~ \mathrm{cm}$, the $z$ was about $8.5 \mathrm~{hu}$ in my theory. So I will draw my trajectory of my phone using centimeters rather than the hu which is defined by me.  
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=3 in]{../pic/phoneHeight.jpg}
+	\caption{Measuring the Height}
+	\label{fig:phoneHeight}
+\end{figure}
 
 About the sampling rate (sample with my eyes), I was going to sample every 10 frames (1/6 second for a $60$ fps video), but there are so many digits for me to write down and that makes me give up. In turn, I try to decrease the points I need to write down by the way of judging the value of the points. If the point is important, like the corner, I will keep it, otherwise, I ignore it. In a word, I was trying my best to keep the shape of the trajectory and decrease the points I need to write down.
 
