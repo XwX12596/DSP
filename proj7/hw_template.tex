@@ -4,6 +4,7 @@
 \usepackage{pythonhighlight}
 \usepackage[margin=1.5cm]{geometry}
 \usepackage[title]{appendix}
+\usepackage{subfigure}
 \usepackage{listings}
 \usepackage{booktabs}
 
@@ -108,26 +109,26 @@ Finally, I referred the data on the official website and found that the official
 
 \section{Pros and Cons of Shannon/Nyquist sampling method}
 \subsection{Positive}
-\subsubsection*{Ideal and easy to understand}
+\subsubsection{Ideal and easy to understand}
 In Shannon/Nyquist sampling method, we only consider things that are ideal. Like $\delta(t)$, and the ideal LPF. It is mathematically simple and friendly to beginners.
-\subsubsection*{Easy to calculate}
+\subsubsection{Easy to calculate}
 Using Fourier series and Fourier transform, we can easily find the distribution of energy on the frequency domain since the $\delta$ function has nice special properties.
 
-\subsubsection*{No Error}
+\subsubsection{No Error}
 Through calculation, we know that if we make $f_s$ and $f_c$ have proper values, a perfectly the same frequency spectrum can be reconstructed. This is good because we don't need to worry about making mistake through communication.
 
-\subsubsection*{Easy to Reconstruct}
+\subsubsection{Easy to Reconstruct}
 Assuming that we have a sampled signal, all we should do is to find the bandwidth, and to let the sampled signal pass a LPF. Then, a perfectly reconstructed signal is complete.
 
 \subsection{Negative}
-\subsubsection*{Non-existent signal}
+\subsubsection{Non-existent signal}
 Though the sampling progress is theoretically easy to carry out, the $\delta$ function is not so easy to generate. Mathematically, it has infinite energy in \emph{one} period. According to the law of conservation of energy, we can't make a signal like the $\delta(t)$, see (\ref{eq:energyOfPulse}).
 \begin{equation}
 E = \sum_{n = -\infty}^{\infty} T \to \infty
 \label{eq:energyOfPulse}
 \end{equation}
 
-\subsubsection*{Waste of bandwidth}
+\subsubsection{Waste of bandwidth}
 In practical usage, engineers cannot find a ideal LPF, especially which has infinite differential (has a sharp drop). All we can find is those which have smooth differential, and LPF like these will occupy more bandwidth of channels. Then, because
 
 $$
@@ -143,12 +144,30 @@ Since the Image Acquisition System in mice determine the displacement through th
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=5 in]{../pic/cuttingBoard.jpg}
+	\includegraphics[width=3 in]{../pic/cuttingBoard.jpg}
 	\caption{My Cutting Board}
 	\label{fig:cuttingBoard}
 \end{figure}
 
-So I use this board as my background of the video. Next I want to specify how I can know the shift in $x, y, z$. First, for $x, y$, I want to use the middle point in the video as the place where my phone is, and compare the present frame and the previous frame in order to decide the displacement horizontally. Vertically, I cannot find other good way to represent the height, so I decide to use the square root of the number of blocks in one cut, which means when the there's 16 blocks in one frame, the \emph{height} will be $4$ \emph{height units} (referred as hu) in my estimation. Afterwards, I measured that when my phone was at the height of $10~ \mathrm{cm}$, the $z$ was about $8.5 \mathrm~{hu}$ in my theory. So I will draw my trajectory of my phone using centimeters rather than the hu which is defined by me.  
+\subsubsection{Horizontal}
+So I use this board as my background of the video. Next I want to specify how I can know the shift in $x, y, z$. First, for $x, y$, I want to use the middle point in the video as the place where my phone is, and compare the present frame and the previous frame in order to decide the displacement horizontally. 
+
+\subsubsection{Vertical}
+
+Vertically, I take inspiration from similar triangular pyramid in which the area of the bottom is proportional to the height (see Fig.~\ref{fig:blocksAndPyramid}(a)), so I decide to use the square root of the number of blocks in one cut (represents the area of the bottom), which means when the there's 16 blocks in one frame, the \emph{height} will be $4$ \emph{height units} (referred as hu) in my estimation. Another example please see Fig.~\ref{fig:blocksAndPyramid}(b). 
+
+Afterwards, I measured that when my phone was at the height of $10~ \mathrm{cm}$, the $z$ was about $8.5 \mathrm~{hu}$ in my theory. So I will draw my trajectory of my phone using centimeters rather than the hu which is defined by me.  
+
+\begin{figure}[!h]
+	\centering
+	\subfigure[Triangular Pyramid]{\includegraphics[height=3 in]{../pic/tri-pyramid.png}}
+	\hspace{0 pt}
+	\subfigure[Blocks in One Frame]{\includegraphics[height=3 in]{../pic/blocks.png}}
+	\caption{Vertically Distance Estimation}
+	\label{fig:blocksAndPyramid}
+\end{figure}
+
+\subsubsection{Selection of Sampling Points}
 
 About the sampling rate (sample with my eyes), I was going to sample every 10 frames (1/6 second for a $60$ fps video), but there are so many digits for me to write down and that makes me give up. In turn, I try to decrease the points I need to write down by the way of judging the value of the points. If the point is important, like the corner, I will keep it, otherwise, I ignore it. In a word, I was trying my best to keep the shape of the trajectory and decrease the points I need to write down.
 
@@ -162,8 +181,9 @@ Consider things above, I draw the trajectory with python, see Fig.~\ref{fig:traj
 \end{figure}
 
 \subsection{Error Analysis}
+\subsubsection{Horizontal}
 For the $x$ and $y$, I record the data by the format like \verb|an integer + quarters |, so the error will be within $0.5 ~ \mathrm{cm}$.
-
+\subsubsection{Vertical}
 For the $y$, the raw data is the number of blocks. The error will be about $10$ blocks, and convert to hu is $3.16 ~ \mathrm{hu}$, and convert to cm is $2.686~ \mathrm{cm}$
 
 \section{Conclusion}
@@ -179,6 +199,7 @@ The trajectory is not so smooth because I don't sample enough, but it is roughly
 \begin{appendices}
 \section{Code Listing}
 \begin{python}
+#plot the trajectory
 from matplotlib import pyplot as plt
 import numpy as np
 
@@ -222,6 +243,36 @@ ax = plt.axes(projection='3d')
 ax.plot(x, y, z)
 plt.show()
 \end{python}
+\begin{python}
+#plot the triangular pyramid
+import numpy as np
+from matplotlib import pyplot as plt
+
+x = [0, 1, 0.5, 0.5]
+xx = [0.5, 0.25, 0.75, 0.5]
+y = [0, 0, 0.7, 0.35]
+yy = [0.35, 0.175, 0.175, 0.525]
+z = [0, 0, 0, 0.6]
+zz = [0.6, 0.3, 0.3, 0.3]
+
+plt.figure()
+ax = plt.axes(projection = '3d')
+
+for i in range(4):
+    for j in range(4):
+        ax.scatter((x[i]),(y[i]),(z[i]),color='r')
+        ax.plot((x[i],x[j]),(y[i],y[j]),(z[i],z[j]),color='b', linewidth=1)
+for i in range(4):
+    for j in range(4):
+        ax.scatter((xx[i]),(yy[i]),(zz[i]),color='r')
+        ax.plot((xx[i],xx[j]),(yy[i],yy[j]),(zz[i],zz[j]),color='b',linewidth=1)
+ax.scatter(0.5, 0.35, 0,color='r')
+ax.scatter(0.5, 0.35, 0.3, color='r')
+ax.plot((0.5,0.5,0.5),(0.35,0.35,0.35),(0,0.3,0.6))
+
+plt.show()
+\end{python}
+
 \end{appendices}
 
 \end{document}
