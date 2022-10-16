@@ -1,6 +1,8 @@
 # Digital Signal Processing Homework
 
-> Really, LET IT GO.
+> もう、どうでもいいだよ。
+>随便吧。
+>Whatever.
 
 
 To do list :
