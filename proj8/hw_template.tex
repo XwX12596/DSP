@@ -1,0 +1,104 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, cite, algorithmic, url, braket}
+\usepackage{graphicx}
+\usepackage{pythonhighlight}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage[title]{appendix}
+\usepackage{listings}
+\usepackage{booktabs}
+
+\graphicspath{{../pic/}}
+\lstset{
+language=[ANSI]{C},
+showtabs=true,
+tab=,
+tabsize=2,
+basicstyle=\ttfamily\footnotesize,%\setstretch{.5},
+stringstyle=\color{stringcolour},
+showstringspaces=false,
+alsoletter={1234567890},
+otherkeywords={\%, \}, \{, \&, \|},
+keywordstyle=\color{keywordcolour}\bfseries,
+upquote=true,
+morecomment=[s]{/*}{*/},
+commentstyle=\color{commentcolour}\slshape,
+literate=*%
+{=}{{\literatecolour=}}{1}%
+{-}{{\literatecolour-}}{1}%
+{+}{{\literatecolour+}}{1}%
+{*}{{\literatecolour*}}{1}%
+{!}{{\literatecolour!}}{1}%
+{[}{{\literatecolour[}}{1}%
+{]}{{\literatecolour]}}{1}%
+{<}{{\literatecolour<}}{1}%
+{>}{{\literatecolour>}}{1}%
+% {>>>}{\pythonprompt}{3}%
+,%
+frame=trbl,
+rulecolor=\color{black!40},
+backgroundcolor=\color{white},
+breakindent=.5\textwidth,frame=single,breaklines=true
+}
+
+\begin{document}
+\title{DSP Homework 08}
+\author{Xu, Minhuan}
+\maketitle
+\tableofcontents
+\begin{abstract}
+
+\end{abstract}
+
+
+\section{Comparison Between Two Sampling Methods}
+\subsection{Understanding of Wan Sampling Method}
+The Taylor Theorem is expressed as below.
+$$
+f(x) = \sum_{i = 0}^{n} ~ \frac{f^{(i)}(x_0)}{i!} ~ (x - x_0)^i + R_n(x)
+$$
+
+Applying to our signal $x(t)$, we can make $t_0 = nT, n = 2$ here and get
+\begin{equation}
+	x(t) = x(nT) + x'(nT)(x - nT) + \frac{x''(t_0)}{2}(x - t_0)^2 + R_2(t)
+\end{equation}
+What exactly we get after sampling is only the values of $x(nT)$, but It is easy to do derivation. Therefore, using simple circuit, we know the values of $x'(nT),\,x''(nT),\,x'''(nT),\,\cdots$
+
+So, the reconstructed signal $\hat{x}(t)$ can be expressed as
+\begin{equation}
+	\hat{x}(t) = x(nT) + x'(nT)(x - nT) + R_1(t)
+\end{equation}
+but also as
+\begin{equation}
+	\hat{x}(t) = x(nT) + R_0(t)
+\end{equation}
+The difference of the above two lies on the error of the reconstructed signal. It time to do the quantitative analysis, we assume that
+\begin{equation}
+	\begin{aligned}
+		&|\hat{x}(t) - x(t)| < \epsilon \\
+		&|x^{(n)}(t)| \qquad < \eta_n
+	\end{aligned}
+\end{equation}
+So, to ensure the accuracy, we need to make the sampling period $T$ satisfy the equations below.
+\begin{align}
+	T < \left\{ 
+	\begin{array}{lr}
+	 	\frac{2\epsilon}{\eta_1} & n = 1 \\
+	 	2 \sqrt{\frac{2\epsilon}{\eta_2}} & n = 2
+	\end{array} 
+	\right.
+\end{align}
+
+
+
+\section{Conclusion}
+
+
+
+\bibliographystyle{ieeetr}
+\bibliography{../bib/database}
+
+\begin{appendices}
+
+\end{appendices}
+
+\end{document}
