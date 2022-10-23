@@ -2,8 +2,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 N = 10
-t = np.arange(0, 20, 0.1)
-func = np.cos(t) * np.e**((-0.1)*t)
+t = np.arange(0, 10, 0.02)
+func = np.cos(8*t)+np.sin(5*t)*np.cos(2*t)
 
 fig1 = plt.figure()
 plt.plot(t, func)
