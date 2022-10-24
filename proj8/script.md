@@ -52,18 +52,14 @@ $$
 - be honest and aware of their responsibility to protect human rights
 - 特技动作
 - synergy between mechanical parts and an ai-powered programmed brain that's why Atlas can potentially make soldiers totally obsolete in the future.
-
 - automatic robots
   - need input in the control
-
 - automated robots
   - carry out commands in a chronological and pre-programmed manner
   - programmed to identify enemy forces in a specific manner
-
 - autonomous robot
   - be programmed to be able to make choices between different options even though they are still constrained by their programming they can exercise independent judgement using high-level artificial intelligence
   - eventually make soldiers obsolete
-
 - advantages
   - 没有人员伤亡
   - 严酷的环境
@@ -94,3 +90,11 @@ $$
 - exercise choosing
 - lift a lot of weights 
 - formation and resorption
+
+# USB Hubs
+
+- judge: ==power delivery== and ==data==
+- transmit: ==time division multiplexing==
+- virtual address
+  - the ==upstream port== can access all the ==downstream ports==
+  - downstream ports cannot access any other ports except the upstream port
