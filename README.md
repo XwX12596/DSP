@@ -23,6 +23,8 @@ To do list :
 
 - [x] homework 07
 
-- [ ] homework 08
+- [x] homework 08
 
 - [x] Monthly Project 01
+
+- [ ] Monthly Project 02 *Proposal*
