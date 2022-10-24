@@ -232,6 +232,7 @@ And I based on these techniques and proposed a concept device that allow one PC 
 \begin{appendices}
 \section{Code Listing}
 \begin{python}
+# draw.py
 import numpy as np
 from matplotlib import pyplot as plt
 
@@ -258,6 +259,18 @@ for i in range(1, N + 1):
 plt.figure()
 plt.scatter(intv, maxs)
 plt.show()
+\end{python}
+
+\begin{python}
+# FlowChart.md
+```mermaid
+flowchart TD
+	PC[Personal Computer] -- Driver Software --> dev[My Concept Device];
+	dev -- TDM --> E1[Earphone No.1];
+	dev -- TDM --> E2[Earphone No.2];
+	E1 --> L1[Listener No.1];
+	E2 --> L2[Listener No.2];
+```
 \end{python}
 \end{appendices}
 

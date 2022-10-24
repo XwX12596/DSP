@@ -28,8 +28,6 @@ $$
 |x^{(n)}(t)| < \eta_n
 $$
 
-- 
-
 
 
 # Videos
@@ -103,7 +101,7 @@ $$
 
 ```mermaid
 flowchart TD
-	PC[Personal Compu] -- Driver Software --> dev[My Concept Device];
+	PC[Personal Computer] -- Driver Software --> dev[My Concept Device];
 	dev -- TDM --> E1[Earphone No.1];
 	dev -- TDM --> E2[Earphone No.2];
 	E1 --> L1[Listener No.1];
