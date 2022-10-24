@@ -5,7 +5,7 @@ N = 10
 t = np.arange(0, 10, 0.02)
 func = np.cos(8*t)+np.sin(5*t)*np.cos(2*t)
 
-fig1 = plt.figure()
+plt.figure()
 plt.plot(t, func)
 plt.show()
 
@@ -21,6 +21,6 @@ for i in range(1, N + 1):
         nl *= j
     maxs.append((nl/np.max(df))**(1/i))
 
-fig2 = plt.figure()
+plt.figure()
 plt.scatter(intv, maxs)
 plt.show()

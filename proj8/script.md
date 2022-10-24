@@ -97,3 +97,16 @@ $$
 - virtual address
   - the ==upstream port== can access all the ==downstream ports==
   - downstream ports cannot access any other ports except the upstream port
+
+- listen to different songs in one computer with two earphones
+- listen to different songs in different devices with the same earphones
+
+```mermaid
+flowchart TD
+	PC[Personal Compu] -- Driver Software --> dev[My Concept Device];
+	dev -- TDM --> E1[Earphone No.1];
+	dev -- TDM --> E2[Earphone No.2];
+	E1 --> L1[Listener No.1];
+	E2 --> L2[Listener No.2];
+```
+

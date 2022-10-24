@@ -54,7 +54,7 @@ First, I found out all aspects I can come out to compare the two sampling method
 
 Second, I used an example to find out the relationship between the sampling period $T$ and the order of reconstructed signal $\hat{x}(t)$ in Wan Sampling Method.
 \subsubsection*{USB Hubs and My Proposal about it}
-
+Finding out the techniques USB Hubs, I propose a device which can make one PC output two different music source.
 
 \end{abstract}
 
@@ -185,16 +185,24 @@ Analyzing these digits, I found that with the same error $\epsilon$, if we raise
 
 \section{USB Hubs and My Proposal about It}
 \subsection{USB Hubs}
-The USB Hubs are those devices that expand one USB port to several other ports. Those ports are divided into two kinds, one is called upstream port (usually connected to PC) and the other is called the downstream ports (usually connected to I/O or storage devices).
+The USB Hubs are those devices that expand one USB port to several other ports. Those ports are divided into two kinds, one is called upstream port (usually connected to PC) and the other is called the downstream ports (usually connected to I/O or storage devices). 
 
 The upstream port can access all the downstream ports. However, downstream ports cannot access any other ports except the upstream port. What's more, Time Division Multiplexing are applied to avoid the mess that all downstream ports transmit data at the same time.
 
-Moreover, for a computer which is connected to the upstream port, if there's a device connected to the downstream ports, the computer will allocate an address to the newly connected device in order to manage and transmit data to it.
+Moreover, for a computer which is connected to the upstream port, if there's a device connected to the downstream ports, the computer will allocate an address to the newly connected device in order to manage and transmit data to it (Relying built-in driver software).
 
 \subsection{My Proposal}
 
+\paragraph{Why} There's the situation that if I am in a train with my best friend, we are going to sitting on the train for several hours. We both want to listen to some music, but I want to listen to Chinese songs while he wants to listen to English songs. The problem is that there certainly are one kind of wires which have one male 3.5$~\mathrm{mm}$ earphone port and other two female 3.5 $~\mathrm{mm}$ ports. But these things cannot deal with such problems.
 
+\paragraph{What and How} What I want to propose is a device that can take the input from the 3.5$~\mathrm{mm}$ port on my PC, and produce two different output. The data transmission will use the technique of Time Division Multiplexing. What's more, there will also be a driver software which can be installed into PCs and controls the two outputs. The exact working flow is shown in the Fig.~\ref{fig:flowchartOfMyInvention} (Drawn by me with Mermaid in Markdown).
 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=2.6 in]{../pic/flowchartOfMyInvention.png}
+	\caption{The Flowchart of My Concept Invention}
+	\label{fig:flowchartOfMyInvention}
+\end{figure}
 
 \section{Conclusion}
 \subsubsection*{Videos}
@@ -208,6 +216,15 @@ The differences of the two lie in
 	\item Bandwidth
 \end{enumerate}
 \subsubsection*{USB Hubs and My Proposal about It}
+USB Hubs are relying these techniques below:
+\begin{enumerate}
+	\item USB Protocols (Not the Hubs but all USB ports);
+	\item Time Division Multiplexing;
+	\item Different Addresses in PCs.
+\end{enumerate}
+
+And I based on these techniques and proposed a concept device that allow one PC can drive two earphones and play different music.
+
 
 \bibliographystyle{ieeetr}
 \bibliography{../bib/database}
@@ -222,7 +239,7 @@ N = 10
 t = np.arange(0, 20, 0.1)
 func = np.cos(8*t)+np.sin(5*t)*np.cos(2*t)
 
-fig1 = plt.figure()
+plt.figure()
 plt.plot(t, func)
 plt.show()
 
@@ -238,7 +255,7 @@ for i in range(1, N + 1):
         nl *= j
     maxs.append((nl/np.max(df))**(1/i))
 
-fig2 = plt.figure()
+plt.figure()
 plt.scatter(intv, maxs)
 plt.show()
 \end{python}
