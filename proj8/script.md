@@ -93,7 +93,6 @@ $$
 
 # USB Hubs
 
-- judge: ==power delivery== and ==data==
 - transmit: ==time division multiplexing==
 - virtual address
   - the ==upstream port== can access all the ==downstream ports==

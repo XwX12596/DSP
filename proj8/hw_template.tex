@@ -47,6 +47,14 @@ breakindent=.5\textwidth,frame=single,breaklines=true
 \maketitle
 \tableofcontents
 \begin{abstract}
+\subsubsection*{Videos}
+After summing up the videos, I learned more about the stretch robots in Boston Dynamics.
+\subsubsection*{Comparison Between Two Sampling Methods}
+First, I found out all aspects I can come out to compare the two sampling methods.
+
+Second, I used an example to find out the relationship between the sampling period $T$ and the order of reconstructed signal $\hat{x}(t)$ in Wan Sampling Method.
+\subsubsection*{USB Hubs and My Proposal about it}
+
 
 \end{abstract}
 
@@ -109,9 +117,9 @@ and this specific value is associated with all sampling points.
 Therefore, if the receiver got a piece of signal from the sender, it's hard to determine the sampling rate in advance in Shannon/Nyquist Sampling Method. However, in Wan Sampling Method we can use (\ref{eq:WanReconstruct}) to sample this little piece of signal.
 
 \subsection{Circuits}
-In Shannon/Nyquist Sampling Method, see (\ref{eq:SN-Recon}), mathematical methods we must use are \emph{infinite} summation, multiple, sinc function. It is easy to find that the summation and the sinc function are difficult to implement.
+In Shannon/Nyquist Sampling Method, we need a filter which the cut-off frequency $f_c$ should be carefully chosen. Since the ideal LPF is not realizable, so engineers always use raised-cosine filter or root-raised-cosine filter to replace the ideal LPF. We have only learnt the analytical expressions of these two filters in The Principles of Communication and to implement it is difficult.
 
-In Wan Sampling Method, see (\ref{eq:WanReconstruct}), mathematical methods we must use are just \emph{finite} summation, multiple, differential calculus. In Analog Circuit, it is easy to do the plus, multiple, differential calculus using the operational amplifier.
+In Wan Sampling Method, see (\ref{eq:WanReconstruct}), mathematical methods we must use are just summation, multiple, differential calculus. In Analog Circuit, it is easy to do the plus, multiple, differential calculus using the operational amplifier.
 
 \subsection{Flexible Error}
 In Shannon/Nyquist Sampling Method, if we have determined the sampling rate in advance, the error is not predictable when the frequency of the signal is beyond the maximum frequency of Shannon/Nyquist Sampling Method.
@@ -175,9 +183,31 @@ About the value of $T$, I plotted a signal of $\cos(8t) + \sin(5t)\cos(2t)$ and 
 
 Analyzing these digits, I found that with the same error $\epsilon$, if we raise the order of the $\hat{x}(t)$, the sampling rate can be set higher. In other words, it is the order of the reconstructed signal and the sampling rate decide the maximum of the error, and the two variables are negatively correlated when the error $\epsilon$ is fixed. So, if the accuracy is needed to be less, then what can be done is to raise the sampling rate or to raise the order of $\hat{x}(t)$.
 
+\section{USB Hubs and My Proposal about It}
+\subsection{USB Hubs}
+The USB Hubs are those devices that expand one USB port to several other ports. Those ports are divided into two kinds, one is called upstream port (usually connected to PC) and the other is called the downstream ports (usually connected to I/O or storage devices).
+
+The upstream port can access all the downstream ports. However, downstream ports cannot access any other ports except the upstream port. What's more, Time Division Multiplexing are applied to avoid the mess that all downstream ports transmit data at the same time.
+
+Moreover, for a computer which is connected to the upstream port, if there's a device connected to the downstream ports, the computer will allocate an address to the newly connected device in order to manage and transmit data to it.
+
+\subsection{My Proposal}
+
+
+
+
 \section{Conclusion}
-
-
+\subsubsection*{Videos}
+I imagined how the stretch will work in a warehouse, and find an possible alternative of the suck disc stretches have.
+\subsubsection*{Comparison Between Two Sampling Methods}
+The differences of the two lie in
+\begin{enumerate}
+	\item Local Adaptivity
+	\item Circuits
+	\item Error
+	\item Bandwidth
+\end{enumerate}
+\subsubsection*{USB Hubs and My Proposal about It}
 
 \bibliographystyle{ieeetr}
 \bibliography{../bib/database}
