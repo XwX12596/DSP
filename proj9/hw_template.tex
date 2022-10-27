@@ -50,23 +50,83 @@ breakindent=.5\textwidth,frame=single,breaklines=true
 
 \end{abstract}
 
-\section{1}
+\section{Videos}
 
 \section{Digital Number Representations}
 
 \subsection{Exact Meanings of Common Representations}
-\begin{enumerate}
-	\item[-] byte: 
-	\item[-] short integer: 
-	\item[-] integer: 
-	\item[-] float: 
-	\item[-] double: 
-	\item[-] quadruple types: 
-	\item[-] fixed-point: 
-	\item[-] floating-point: 
-\end{enumerate}
 
-\section{3}
+\subsubsection{Fixed-Point Data Types}
+In computer we use bits to store numbers, between these bits, there's a virtual point which divided this number into integer part and fraction part. Fixed-point means this point will not move. This point is usually placed to the tail of binary digits, so that this piece of digits can represent one integer.
+
+Byte, Short Integer and Integer are fixed-point type. Details in Table~\ref{tab:fixed-point}.
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+        Type & Bytes & Signed Number range & Unsigned Number Range \\ \hline
+        Byte & 1 & -128 $\sim$ 127 & 0 $\sim$ 255 \\ \hline
+        Short Integer & 2 & -32,768 $\sim$ 32,767 & 0 $\sim$ 65535 \\ \hline
+        Integer & 4 & $- 2^{31} \sim 2^{31} - 1$ & $0 \sim 2^{32} - 1$ \\ \hline
+    \end{tabular}
+    \caption{Common Properties of Fixed-Point Data Types}
+    \label{tab:fixed-point}
+\end{table}
+
+\subsubsection{Floating-Point Data Types}
+Floating-point means that division point mentioned above can move. There are 3 parts of digits with floating-point. 
+
+First, sign, always 1 bit, represents whether this number is positive or negative. 
+
+Second, exponent, several bits, represents an non-negative number, assuming $n$. Engineers want the bits to represent the shift of the fraction number. So, engineers give $n$ an initial shift assuming $-N$, and this $N$ is called Exponent Bias. This means we can just think the exponent bits represents $10^{n - N}$ in binary.
+
+Third, fraction, several bits, represents a number in $[0, 1)$, assuming $1.xxxx\cdots$. However, the $1$ before the decimal point is ignored according to the rules of floating-point data type in order to save bits. So, in memory, fraction part is like $.xxxx\cdots$.
+
+So, this floating-point number should be represented as $1.xxxx\cdots \times 10^n \; (\text{all in binary except n})$. 
+The arrangement of Floating-point Data is as below, see Table~\ref{tab:floating-point-arrangement}.
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+        Sign & \multicolumn{4}{|c}{Exponent}  & \multicolumn{5}{|c|}{Fraction} \\ \hline
+        S & E & E & $\cdots$ & E & F & F & F & $\cdots$ & F \\ \hline
+    \end{tabular}
+    \caption{Common Arrangement of Floating-point Data}
+    \label{tab:floating-point-arrangement}
+\end{table}
+
+Float, Double, quadruple are floating-point data type. Details in
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+        Type & Bytes & Bits for Exponent & Bits for Fraction & Exponent Bias  \\ \hline
+        Float & 4 & 8 & 23 & $2^7 - 1$   \\ \hline
+        Double & 8 & 11 & 52 & $2^{10} - 1$  \\ \hline
+        quadruple & 16 & 15 & 112 & $2^{14} - 1 $  \\ \hline
+    \end{tabular}
+    \caption{Common Properties of Floating-point Data Types}
+    \label{tab:floating-point}
+\end{table}
+
+\subsubsection{Analysis of Double Type Floating-point Numbers}
+The classification of floating-point data types uses the minimum error the specific data type has. Double precision is the common name of binary64 which means 64 bits to represent numbers.
+The smallest absolute value (except $0$) of double $\Delta$ is represented by bits like:
+$$
+0,\overbrace{00\cdots0}^{10 \text{ bits of } 0}1,\overbrace{00\cdots0}^{51 \text{ bits of } 0},1
+$$
+According to the IEEE 754, the Exponent Bias for Double is 1023. We can find that (D: Decimal; B: Binary)
+ $$\Delta = 1.\overbrace{00\cdots0}^{51 \text{ bits of } 0}1B \times 10B^{1D-1023D} \; = 2D^{-1022D} + 2D^{-1074D}  \approx 2.23 \times 10^{-308}$$
+
+ So, $\Delta$ also the precision of Double is $2.23 \times 10^{-308}$. So, the usual error of Double floating-point numbers is about $2.23 \times 10^{-308}$.
+
+\subsubsection{My Proposal}
+
+
+\section{Lloyd-Max Quantization Algorithm}
 
 \section{Optimal Quantization Strategy When PDF Has Uniform Distribution}
 We have the quantization error of J which can be described as below:
@@ -79,6 +139,8 @@ In the special case of uniform distribution, we Have
 J = \sum_{i = 1}^{M}  \int_{b_{i - 1}}^{b_i} [q_i - x]^2 \; \mathrm{d}x
 \label{eq:label}
 \end{equation}
+
+\subsection{Find the Optimal Quantization Level}
 
 To find the best $q_i$, take the partial derivative of $q_i$
 \begin{equation*}
@@ -102,6 +164,8 @@ Therefore
 	\label{eq:qiResult}
 \end{equation}
 
+\subsection{Find the Optimal Quantization Interval}
+
 And, the same as the $q_i$, take the partial of $b_i$, and make $\frac{\partial J}{\partial b_i} = 0$
 \begin{equation*}
 	\begin{aligned}
@@ -121,7 +185,7 @@ We learned (\ref{eq:derivation}) in out freshman year that
 \label{eq:derivation}
 \end{equation}
 
-Rewrite the (\ref{eq:biCondi}) 
+Rewrite the (\ref{eq:biCondi})
 \begin{equation*}
 	\begin{aligned}
 		(q_i - b_i)^2 &= (q_{i + 1} - b_i)^2 \\ 
@@ -134,6 +198,8 @@ We can have the other result
 	b_i = \frac{q_{i + 1} + q_i}{2}
 	\label{eq:biResult}
 \end{equation}
+
+\subsection{Conclude the Optimal Quantization Strategy}
 
 If we combine (\ref{eq:qiResult}) with (\ref{eq:biResult}). First, we can know that 
 \begin{gather}
