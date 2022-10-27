@@ -1,0 +1,172 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, cite, algorithmic, url, braket}
+\usepackage{graphicx}
+\usepackage{pythonhighlight}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage[title]{appendix}
+\usepackage{subfigure}
+\usepackage{listings}
+\usepackage{booktabs}
+
+\graphicspath{{../pic/}}
+\lstset{
+language=[ANSI]{C},
+showtabs=true,
+tab=,
+tabsize=2,
+basicstyle=\ttfamily\footnotesize,%\setstretch{.5},
+stringstyle=\color{stringcolour},
+showstringspaces=false,
+alsoletter={1234567890},
+otherkeywords={\%, \}, \{, \&, \|},
+keywordstyle=\color{keywordcolour}\bfseries,
+upquote=true,
+morecomment=[s]{/*}{*/},
+commentstyle=\color{commentcolour}\slshape,
+literate=*%
+{=}{{\literatecolour=}}{1}%
+{-}{{\literatecolour-}}{1}%
+{+}{{\literatecolour+}}{1}%
+{*}{{\literatecolour*}}{1}%
+{!}{{\literatecolour!}}{1}%
+{[}{{\literatecolour[}}{1}%
+{]}{{\literatecolour]}}{1}%
+{<}{{\literatecolour<}}{1}%
+{>}{{\literatecolour>}}{1}%
+% {>>>}{\pythonprompt}{3}%
+,%
+frame=trbl,
+rulecolor=\color{black!40},
+backgroundcolor=\color{white},
+breakindent=.5\textwidth,frame=single,breaklines=true
+}
+
+\begin{document}
+\title{DSP Homework 09}
+\author{Xu, Minhuan}
+\maketitle
+\tableofcontents
+\begin{abstract}
+
+\end{abstract}
+
+\section{1}
+
+\section{Digital Number Representations}
+
+\subsection{Exact Meanings of Common Representations}
+\begin{enumerate}
+	\item[-] byte: 
+	\item[-] short integer: 
+	\item[-] integer: 
+	\item[-] float: 
+	\item[-] double: 
+	\item[-] quadruple types: 
+	\item[-] fixed-point: 
+	\item[-] floating-point: 
+\end{enumerate}
+
+\section{3}
+
+\section{Optimal Quantization Strategy When PDF Has Uniform Distribution}
+We have the quantization error of J which can be described as below:
+\begin{equation}
+J = \sum_{i = 1}^{M}  \int_{b_{i - 1}}^{b_i} [Qi(x) - x]^2 \, p(x) \; \mathrm{d}x
+\end{equation}
+
+In the special case of uniform distribution, we Have
+\begin{equation}
+J = \sum_{i = 1}^{M}  \int_{b_{i - 1}}^{b_i} [q_i - x]^2 \; \mathrm{d}x
+\label{eq:label}
+\end{equation}
+
+To find the best $q_i$, take the partial derivative of $q_i$
+\begin{equation*}
+	\begin{aligned}
+		\frac{\partial J}{\partial q_i} &= \sum_{i = 1}^{M} \int_{b_{i - 1}}^{b_i} \frac{\partial}{\partial q_i} (q_i^2 - 2q_ix + x^2) \; \mathrm{d}x \\
+		&= \sum_{i = 1}^{M} \int_{b_{i - 1}}^{b_i} (2 q_i - 2x) \; \mathrm{d}x \\ 
+	\end{aligned}
+\end{equation*}
+
+We want $\frac{\partial J}{\partial q_i} = 0$. Therefore \\ 
+\begin{equation*}
+	\begin{aligned}
+		 q_i \int_{b_{i - 1}}^{b_i} \; \mathrm{d}x &=  \int_{b_{i - 1}}^{b_i} x \; \mathrm{d}x \\ 
+		 q_i (b_i - b_{i - 1}) &= \frac12 \;  (b_i^2 - b_{i - 1}^2) 	 
+	\end{aligned}
+\end{equation*}
+
+Therefore
+\begin{equation}
+	q_i = \frac{b_i + b_{i - 1}}{2} 
+	\label{eq:qiResult}
+\end{equation}
+
+And, the same as the $q_i$, take the partial of $b_i$, and make $\frac{\partial J}{\partial b_i} = 0$
+\begin{equation*}
+	\begin{aligned}
+		\frac{\partial J}{\partial b_i} &= \frac{\partial}{\partial b_i} \sum_{i = 1}^{M} \int_{b_{i - 1}}^{b_i} (q_i - x)^2 \; \mathrm{d}x \\ 
+		&= \frac{\partial}{\partial b_i} [\int_{b_{i - 1}}^{b_i} (q_i - x)^2 \; \mathrm{d}x + \int_{b_{i}}^{b_{i + 1}} (q_{i + 1} - x)^2 \; \mathrm{d}x] \\ 
+		&= 0
+	\end{aligned}
+	\label{eq:biCondi}
+\end{equation*}
+
+We learned (\ref{eq:derivation}) in out freshman year that
+\begin{equation}
+\begin{aligned}
+	\frac{d}{dx} \int_{a}^{x} \, f(t) \; \mathrm{d}t &= f(x) \\ 
+	\frac{d}{dx} \int_{x}^{a} \, f(t) \; \mathrm{d}t &= - f(x)
+\end{aligned}
+\label{eq:derivation}
+\end{equation}
+
+Rewrite the (\ref{eq:biCondi}) 
+\begin{equation*}
+	\begin{aligned}
+		(q_i - b_i)^2 &= (q_{i + 1} - b_i)^2 \\ 
+		b_i - q_i &= q_{i + 1} - b_i
+	\end{aligned}
+\end{equation*}
+
+We can have the other result
+\begin{equation}
+	b_i = \frac{q_{i + 1} + q_i}{2}
+	\label{eq:biResult}
+\end{equation}
+
+If we combine (\ref{eq:qiResult}) with (\ref{eq:biResult}). First, we can know that 
+\begin{gather}
+	q_i = \frac{b_i + b_{i - 1}}{2} \notag \\ 
+	q_{i + 1} = \frac{b_{i + 1} + b_i}{2} \notag
+\end{gather}
+
+Put them in (\ref{eq:biResult})
+\begin{equation*}
+	\begin{aligned}
+		b_i &= \frac{q_i + q_{i + 1}}{2} \\ 
+		&= \frac{1}{2} \; (b_i + \frac{b_{i - 1} + b_{i + 1}}{2}) \\ 
+	\end{aligned}
+\end{equation*}
+
+Therefore
+$$
+	b_i = \frac{b_{i - 1} + b_{i + 1}}{2}
+$$
+
+We can easily know that $b_i$ is an arithmetic sequence, and because (\ref{eq:qiResult}), $q_i$ is an arithmetic sequence too. 
+
+In conclusion, if $p(x)$ is in the special case of uniform distribution, the range of $[0, 1]$ should be equally divided into M parts, and $q_i$ should be the mean of $b_i$ and $b_{i + 1}$.
+
+\section{Conclusion}
+
+
+
+\bibliographystyle{ieeetr}
+\bibliography{../bib/database}
+
+\begin{appendices}
+
+\end{appendices}
+
+\end{document}
