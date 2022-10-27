@@ -13,7 +13,7 @@ To do list :
 
 - [x] Weekly Project II
 
-- [x] Weekly Project II
+- [x] Weekly Project III
 
 - [x] Weekly Project IV
 
