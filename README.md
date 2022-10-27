@@ -9,22 +9,24 @@
 
 To do list :
 
-- [x] homework 01
+- [x] Weekly Project I
 
-- [x] homework 02
+- [x] Weekly Project II
 
-- [x] homework 03
+- [x] Weekly Project II
 
-- [x] homework 04
+- [x] Weekly Project IV
 
-- [x] homework 05
+- [x] Weekly Project V
 
-- [x] homework 06
+- [x] Weekly Project VI
 
-- [x] homework 07
+- [x] Weekly Project VII
 
-- [x] homework 08
+- [x] Weekly Project VIII
 
-- [x] Monthly Project 01
+- [ ] Weekly Project IX
 
-- [ ] Monthly Project 02 *Proposal*
+- [x] Monthly Project I
+
+- [ ] Monthly Project II *Proposal*
