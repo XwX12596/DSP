@@ -1,0 +1,156 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, cite, algorithmic, url, braket}
+\usepackage{graphicx}
+\usepackage{pythonhighlight}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage[title]{appendix}
+\usepackage{subfigure}
+\usepackage{listings}
+\usepackage{booktabs}
+
+\graphicspath{{../pic/}}
+\lstset{
+language=[ANSI]{C},
+showtabs=true,
+tab=,
+tabsize=2,
+basicstyle=\ttfamily\footnotesize,%\setstretch{.5},
+stringstyle=\color{stringcolour},
+showstringspaces=false,
+alsoletter={1234567890},
+otherkeywords={\%, \}, \{, \&, \|},
+keywordstyle=\color{keywordcolour}\bfseries,
+upquote=true,
+morecomment=[s]{/*}{*/},
+commentstyle=\color{commentcolour}\slshape,
+literate=*%
+{=}{{\literatecolour=}}{1}%
+{-}{{\literatecolour-}}{1}%
+{+}{{\literatecolour+}}{1}%
+{*}{{\literatecolour*}}{1}%
+{!}{{\literatecolour!}}{1}%
+{[}{{\literatecolour[}}{1}%
+{]}{{\literatecolour]}}{1}%
+{<}{{\literatecolour<}}{1}%
+{>}{{\literatecolour>}}{1}%
+% {>>>}{\pythonprompt}{3}%
+,%
+frame=trbl,
+rulecolor=\color{black!40},
+backgroundcolor=\color{white},
+breakindent=.5\textwidth,frame=single,breaklines=true
+}
+
+\begin{document}
+\title{DSP Homework 10}
+\author{Xu, Minhuan}
+\maketitle
+\tableofcontents
+\begin{abstract}
+
+\end{abstract}
+
+\section{Videos}
+
+
+
+
+\section{DSP Hardware Platforms}
+
+
+
+
+
+
+\section{Relationship Between FT and DTFT}
+We can first put the expression of perfect reconstruction here
+\begin{equation}
+x_s(t) = \sum_{n} \; x(nT) \, \delta(t - nT) = x_a(t) * s(t) =  x_a(t) * \sum_{n} \left[ \delta(t- nT) \right]
+\label{eq:sampling}
+\end{equation}
+We put (\ref{eq:sampling}) into FT
+\begin{equation}
+\begin{aligned}
+	\widetilde{x}_s(f) &= \int_{- \infty}^{\infty} \sum_{n} \; \left[  x(nT) \, \delta(t - nT) \right] \; e^{-j 2\pi ft}\; \mathrm{d} t \\
+	&= \sum_{n} \; x(nT)  \, e^{-j 2\pi f nT} \\ 
+	&=\sum_{n} \; x(n)  \, e^{-j 2\pi n f'}
+\end{aligned}
+\label{eq:DTFT_0}
+\end{equation}
+The value of $T$ (also $\frac{1}{f_s}$) doesn't matter, so we can make 
+$$
+f' = \frac{f}{f_s} 
+$$
+The (\ref{eq:DTFT_0}) can be changed into
+\begin{equation*}
+\widetilde{x}_s(f) = \sum_{n} \; x(n)  \, e^{-j 2\pi n f'}
+% \label{eq:DTFT}
+\end{equation*}
+Therefore
+\begin{equation*}
+\begin{aligned}
+\widetilde{x}_s(f) &= \mathcal{F} \left[ x_s(t) \right] \\ 
+&= \mathcal{F} \left[ x_a(t) * s(t) \right] \\ 
+&= \widetilde{x}_a(f) \times \widetilde{s}(f) \\ 
+&= \widetilde{x}_a(f) \times \left[ f_s \sum_n \delta(f - nf_s) \right]
+\end{aligned}
+\end{equation*}
+
+Therefore, the relationship can be described as
+\begin{equation}
+	\widetilde{x}(f) = \widetilde{x}_s(f) = \widetilde{x}_a(f) \times \left[ f_s \sum_n \delta(f - nf_s) \right]
+\label{eq:relationship}
+\end{equation}
+
+\section{From Analog Signal to DFT}
+Assuming there's an analog signal $x_a(t)$, computer cannot deal with analog values, so we can sample it use Shannon/Nyquist sampling method. 
+\begin{equation}
+x(n) = x_s(t) =  x_a(t) * \sum_{n} \left[ \delta(t- nT) \right] = \sum_{n} \; x(nT) \, \delta(t - nT)
+\label{eq:Sampling_Mod}
+\end{equation}
+Then, we should analyze $x(n)$ in frequency domain, calculate the FT of $x(n)$ as below. Also, because computer cannot deal with analog values, so we should assume $n \in [0, N)$ to make $x_a(t)$ time-limited.
+\begin{equation}
+\begin{aligned}
+	\widetilde{x}_s(f) &= \int_{- \infty}^{\infty} \sum_{n = 0}^{N - 1} \; \left[  x(nT) \, \delta(t - nT) \right] \; e^{-j 2\pi ft}\; \mathrm{d} t \\
+	&= \int_{- \infty}^{\infty} \sum_{n = 0}^{N - 1} \; \left[  x(nT)  \, e^{-j 2\pi f nT} \, \delta(t - nT) \right] \; \mathrm{d} t \\
+	&= \sum_{n = 0}^{N - 1} \; \left[  x(nT)  \, e^{-j 2\pi f nT} \, \int_{- \infty}^{\infty} \, \delta(t - nT) \, \mathrm{d} t  \right]\\
+	&= \sum_{n = 0}^{N - 1} \; x(nT)  \, e^{-j 2\pi nT \cdot f} \\ 
+	&= \sum_{n = 0}^{N - 1} \; x(n)  \, e^{-j 2\pi n \cdot f}
+	% &=\sum_{n} \; x(n)  \, e^{-j 2\pi n f}
+\end{aligned}
+\label{eq:DTFT_deriv}
+\end{equation}
+Because now $\widetilde{x}_s(f)$ is discrete and we don't care about the sampling period $T$, so we make $f = f \times T$ in (\ref{eq:DTFT_deriv}).
+
+However, $\widetilde{x}_s(f)$ is still not discrete. So, as what we did to $x_a(t)$, we should sample $\widetilde{x}_s(f)$ in frequency domain again. Rewrite the summation of (\ref{eq:DTFT_deriv}) as below:
+$$
+\widetilde{x}_s(f) = x(0) + x(1)e^{-j 2\pi f} + x(2)e^{-j 2\pi \cdot 2f} + \cdots + x(N - 1) e^{-j 2\pi \cdot (N - 1)\,f}
+$$
+The period is decided by $x(1)e^{-j 2\pi f}$ and is $1$ here. We should sample it in $[0, 1)$. Assuming $f = \frac{k}{N} \quad k \in [0, N)$, we have
+\begin{equation*}
+\widetilde{x}_s(\frac{k}{N}) = \widetilde{x}_s(k) = \sum_{n = 0}^{N - 1} \; x(n)  \, e^{-j 2\pi n \cdot \frac{k}{N}}
+\label{eq:DFT}
+\end{equation*}
+$x_s(k)$ is also discrete now, so that it can be processed with the computer.
+
+
+\section{Analog Frequency in DFT}
+Variables in (\ref{eq:DFT}) are $n$ and $k$.
+
+First, here's my thoughts about $n$. Since $\widetilde{x}_s(k)$ is just a sampling of $\widetilde{x}_s(f)$, if we can find high analog frequency in $\widetilde{x}_s(f)$, the same method works for $\widetilde{x}_s(k)$. Go back and see (\ref{eq:relationship}), it tells us that $\widetilde{x}_s(f)$ is just many copies and frequency-shift of $\widetilde{x}_a(f)$. Therefore, the bigger $n$ gets, the higher $\widetilde{x}_s(f)$ reach. 
+
+Then, $k$ also matters. $k$ has its source from $f$, when $k$ (also $f$) gets bigger, no doubt the frequency gets bigger. However, $n$ decides on frequency domain which period we are in. If $n$ is fixed, we cannot reach other other frequency out of this specific interval.  
+
+
+\section{Conclusion}
+
+
+
+\bibliographystyle{ieeetr}
+\bibliography{../bib/database}
+
+\begin{appendices}
+
+\end{appendices}
+
+\end{document}
