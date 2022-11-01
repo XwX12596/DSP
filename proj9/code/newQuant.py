@@ -3,7 +3,7 @@ import numpy as np
 
 img_ = imread("../../pic/picForQuantization.jpg")
 X, Y, _ = img_.shape
-M = 10
+M = 1
 
 cx = np.zeros(256)
 cy = np.zeros(256)
@@ -41,7 +41,7 @@ def updateQ(P, B):
             for k in range(32):
                 num[int(B[i][j][k])] += P[i][j][k] * np.array([i, j, k])
                 den[int(B[i][j][k])] += P[i][j][k]
-    Q = num/den
+    return num/den
 
 def quantiz(img, B, Q):
     qimg = np.zeros((X, Y, 3))
@@ -64,7 +64,7 @@ flag = 0
 err = 1
 for it in range(100):
     updateB(Q, B)
-    updateQ(P, B)
+    Q = updateQ(P, B)
 qimg = quantiz(img, B, Q)
 err = judge(img, qimg)
 print(err)
