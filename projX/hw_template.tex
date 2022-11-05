@@ -47,20 +47,66 @@ breakindent=.5\textwidth,frame=single,breaklines=true
 \maketitle
 \tableofcontents
 \begin{abstract}
-
+\subsubsection*{Videos}
+After summing up the videos, I made a report on my own thoughts.
+\subsubsection*{DSP Platforms}
+I learned about the structure and use of DSP chips on different platforms.
+\subsubsection*{Derivations}
+\begin{enumerate}
+	\item Derivation of the relationship between DTFT result $\widetilde{x}(f)$ and original signal $\widetilde{x}_a(f)$;
+	\item Reasonable derivation of DFT;
+	\item The Influence of Different Parameters on the Frequency Component of DFT result $\widetilde{x}(k)$.
+\end{enumerate}
 \end{abstract}
 
 \section{Videos}
+\subsection{Logarithm In Brain}
+This video first introduces a probability distribution called Log-Normally Distribution which is similar to Normal Distribution. According to the central limit theorem, we know that a large number of samples of independent variables should obey a normal distribution. Log-Normally Distribution is the distribution that the product of a large number of samples of independent variables will obey.
 
+There are many things in our brain are associated to the Log-Normally Distribution. For example, the fire rate of our neurons. According to the distribution, we know that there are lots of neurons firing 1 time or less during 1 second. Those slow ones make a group to deal with unfamiliar things in different ways, but those fast ones make another group to deal with familiar things in same ways.
 
+\subsection{Nuclear Energy}
+I thought that nuclear energy will be the most popular energy in electricity plant if human can handle the safety issues. However, in this video, I learned that it isn't the thing and how to come to this conclusion using economics.
 
+Compared with natural gas, nuclear energy has 3 disadvantages. First, cost of construction. Second, the fuel cost. Third, construction time. It is hard, expensive and time-consuming to construct a nuclear plant since the nuclear technology today is still developing.
+
+So, the reason that the nuclear energy is not popular is that it is expensive for the businessman, and is time-consuming for the politicians. That's because even the profit the nuclear plant can bring is big, the wait time before it can really profit is decades, this is a risk for both the businessman and politicians. At last, the safety issues still should be concerned nowadays.
+
+Comparison to the nuclear energy, natural gas and wind energy is more safe literally and economically. These two are complementary because the wind energy is more clean and cheap and renewable but intermittent; the natural gas can work when wind stops.
+
+\subsection{My Thoughts}
+\subsubsection*{Logarithm In Brain}
+In science, there are so many things remaining unknown. The scientists usually do the 'reverse-engineering', which means they are facing a black box. In this video, the black box is the distribution of all kinds of parameters in our brain. We can draw the distribution for the research objects, but the problem is to find the underneath or underlying mechanisms giving rise to the distribution.
+
+\subsubsection*{Nuclear Energy}
+Nowadays, it is not feasibility that troubles us in most engineering areas, it is the economy, reliability, efficiency. The nuclear energy mirrors this situation we are now in.
 
 \section{DSP Hardware Platforms}
+\subsection{Architectures}
+Most computers' CPUs has Von Neumann Architecture. These processors are general processors, and are competent for all kinds of jobs. However, specialized digital signal processors usually has the architecture of Harvard Architecture.
 
+The difference of the two is how they store the program and the data. See below
+\begin{enumerate}
+	\item Von Neumann Architecture: Program and data are both in the memory and share a TDM bus.
+	\item Harvard Architecture: Program and data are in different memories and are transmitted in different bus.
+\end{enumerate}
 
+\subsection{Computer}
+The CPU in computer can do digital signal processing, but it isn't a specialized processor for digital signals. Its architecture is Von Neumann Architecture, which makes those processors can have a system work on them in order to do all kinds of jobs.
 
+However, the GPU is a specialized DSP. It can do complex floating point matrix calculation, graphics processing, image codec and so on.
 
+\subsection{Microphone}
+DSP in the microphone's job include filtering and coding the digital signal from the ADC.
 
+\subsection{Wireless Earbuds}
+DSP in the wireless earbuds' job include decode the digital signal from the sender, and if there's a microphone in the earbuds, the DSP should be a codec.
+
+\subsection{Smartphones}
+The CPU in smartphones are Von Neumann Architecture, but there's also a specialized digital signal processor in phones. The job of the DSP usually is codec for the audio.
+
+\subsection{Medical Equipment}
+Many medical equipment that requires high timeliness has specialized DSP in them, its job is to do specific instant complex calculation.
 
 \section{Relationship Between FT and DTFT}
 We can first put the expression of perfect reconstruction here
@@ -142,15 +188,24 @@ First, here's my thoughts about $n$. Since $\widetilde{x}_s(k)$ is just a sampli
 Then, $k$ also matters. $k$ has its source from $f$, when $k$ (also $f$) gets bigger, no doubt the frequency gets bigger. However, $n$ decides on frequency domain which period we are in. If $n$ is fixed, we cannot reach other other frequency out of this specific interval.  
 
 
-\section{Conclusion}
+% \section{Conclusion}
+% \subsubsection*{Videos}
+% After summing up the videos, I made a report on my own thoughts.
+% \subsubsection*{DSP Platforms}
+% I learned about the structure and use of DSP chips on different platforms.
+% \subsubsection*{Derivations}
+% \begin{enumerate}
+% 	\item Derivation of the relationship between DTFT result $\widetilde{x}(f)$ and original signal $\widetilde{x}_a(f)$;
+% 	\item Reasonable derivation of DFT;
+% 	\item The Influence of Different Parameters on the Frequency Component of DFT result $\widetilde{x}(k)$.
+% \end{enumerate}
 
 
+% \bibliographystyle{ieeetr}
+% \bibliography{../bib/database}
 
-\bibliographystyle{ieeetr}
-\bibliography{../bib/database}
+% \begin{appendices}
 
-\begin{appendices}
-
-\end{appendices}
+% \end{appendices}
 
 \end{document}
