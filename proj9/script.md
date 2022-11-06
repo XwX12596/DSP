@@ -64,13 +64,13 @@
 
 - tropical forest
   - cool the earth
-- Congo's rainforest
+- Congo's rain forest
 - clearings
 - 沼泽森林
 - called bai
 - no poaching
 - seed dispersers
-- second-largest rainforest
+- second-largest rain forest
 - New Guinea
 - orangutan
   - declined by 75%
@@ -78,4 +78,3 @@
   - poaching
   - learn to be grown up
   - ants and cordyceps
-
