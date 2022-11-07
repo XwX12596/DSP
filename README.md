@@ -27,7 +27,7 @@ To do list :
 
 - [x] Weekly Project IX
 
-- [ ] Weekly Project X
+- [x] Weekly Project X
 
 - [x] Monthly Project I
 
