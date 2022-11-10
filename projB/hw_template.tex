@@ -52,8 +52,105 @@ breakindent=.5\textwidth,frame=single,breaklines=true
 
 \section{01}
 
-\section{02}
-
+\section{IDFT}
+To derive the IDFT formula, we only should derive the expression of $A^{-1}$. And since $A$ can be expressed as below
+$$
+\begin{bmatrix}
+ 1 & 1 & 1 & \cdots & 1 \\
+ 1 & w^1 & w^2 & \cdots & w^{N - 1} \\
+ 1 & w^2 & w^4 & \cdots & w^{2(N - 1)}\\ 
+ \vdots & \vdots & \vdots& \ddots & \vdots\\
+ 1 & w^{2(N - 1)} & w^{4(N - 1)} & \cdots & w^{(N - 1)^2}
+ \end{bmatrix}
+$$
+we note rows in A as $\alpha_i$, and rewrite it as below
+$$
+A = 
+\begin{bmatrix}
+\alpha_0 \\ \alpha_1 \\ \alpha_2 \\ \vdots \\ \alpha_{N - 1}
+ \end{bmatrix} 
+$$
+See $\alpha_i \cdot \alpha_j^H$, if $i \neq j$, we let $\lambda = i - j \in (0, N)$, and
+\begin{equation}
+\begin{aligned}
+    \alpha_i \cdot \alpha_j^H &= \begin{bmatrix}
+    1 & w^i & w^{2i} & w^{3i} & \cdots & w^{(N - 1)i}
+     \end{bmatrix}
+     \cdot
+     \begin{bmatrix}
+    1 \\ w^j \\ w^{2j} \\ w^{3j} \\ \vdots \\ w^{(N - 1)j}
+     \end{bmatrix}\\
+     &= 1 + w^{\lambda} + w^{2 \lambda} + \cdots + w^{(N - 1) \lambda}\\
+     &= \frac{1 - w^{N \lambda}}{1 - w^{\lambda}}\\ 
+     &= \frac{1 - e^{j 2\pi\lambda} \quad (= 0)}{1 - e^{-j\frac{2\pi}{N}\lambda} \quad (\neq 0)}\\ 
+     &= 0
+\end{aligned}
+\label{eq:inj}
+\end{equation}
+If $i = j$, we have
+\begin{equation}
+    \alpha_i \cdot \alpha_j^H = 1 + w^{0} + w^{2 \times 0} + \cdots + w^{(N - 1) \times 0} = N
+    \label{eq:ij}
+\end{equation}
+So, conclude (\ref{eq:inj}) and (\ref{eq:ij}), we have
+\begin{equation}
+    \alpha_i \cdot \alpha_j^H =
+    \begin{cases}
+        0 & \text{if } i \neq j \\ 
+        N & \text{if } i = j
+    \end{cases}
+\label{eq:multi_ij}
+\end{equation}
+Therefore, see $A \cdot A^H$
+\begin{equation}
+\begin{aligned}
+    A \cdot A^H &= 
+    \begin{bmatrix}
+        \alpha_0 \\ \alpha_1 \\ \alpha_2 \\ \vdots \\ \alpha_{N - 1}
+    \end{bmatrix}
+    \cdot
+    \begin{bmatrix}
+        \alpha_0^H & \alpha_1^H & \alpha_2^H & \cdots & \alpha_{N - 1}^H
+    \end{bmatrix} \\ 
+    &= N \cdot 
+    \begin{bmatrix}
+        \alpha_0 \cdot \alpha_0^H & \alpha_0 \cdot \alpha_1^H & \cdots & \alpha_0 \cdot \alpha_{N - 1}^H \\ 
+        \alpha_1 \cdot \alpha_0^H & \alpha_1 \cdot \alpha_1^H & \cdots & \alpha_1 \cdot \alpha_{N - 1}^H \\ 
+        \vdots & \vdots & \ddots & \vdots \\ 
+        \alpha_{N - 1} \cdot \alpha_0^H & \alpha_{N - 1} \cdot \alpha_1^H & \cdots & \alpha_{N - 1} \cdot \alpha_{N - 1}^H
+    \end{bmatrix} \\
+    &= N \cdot 
+    \begin{bmatrix}
+        1 & 0 & \cdots & 0 \\ 
+        0 & 1 & \cdots & 0 \\ 
+        \vdots & \vdots & \ddots & \vdots \\ 
+        0 & 0 & \cdots & 1
+    \end{bmatrix} \\
+    &= N \cdot I
+\end{aligned}
+\label{eq:AAH}
+\end{equation}
+If we multiply $A^{-1}$ in both side of (\ref{eq:AAH}), we have
+\begin{equation}
+    A^{-1} = \frac1N A^H
+\label{eq:A-1}
+\end{equation}
+Therefore, IDFT formula can be expressed as below
+\begin{equation}
+    \begin{aligned}
+        x &= A^{-1} \tilde{x}\\ 
+        &= \frac1N A^H \tilde{x} \\ 
+        &= \frac{1}{N} (A \tilde{x}^H)^H \\ 
+        &= \frac{1}{N} \sum^{N - 1}_{k = 0} \tilde{x}(k)e^{j2\pi kn /N}
+    \end{aligned}
+\end{equation}
+Also, a more symmetric definition is as below
+$$
+    \tilde{x}(k) = \frac{1}{\sqrt{N}} \sum_{n = 0}^{N - 1} x(n) e^{-j 2\pi kn/N}
+$$
+$$
+    x(n) = \frac{1}{\sqrt{N}} \sum_{k = 0}^{N - 1} \tilde{x}(k) e^{j 2\pi kn/N}
+$$
 \section{03}
 
 \section{04}
