@@ -15,7 +15,7 @@ def fft(x):
 def ifft(xt):
     return np.conj(fft(np.conj(xt))) / N
 
-N = 1024
+N = 2**10
 x = np.random.rand(N) + 1j * np.random.rand(N)
 st = time.time()
 y = fft(x)
