@@ -62,3 +62,11 @@ A \cdot A^H = N \cdot
  A^{-1} = \frac1N A^H
 $$
 
+$$
+\tilde{x}(f) = \sum x(\frac n {f_s}) e^{-j 2 \pi \frac{n}{f_s} \cdot f} \\ 
+\widetilde{x}(f) = \widetilde{x}_a(f) * \left[ f_s \sum_n \delta(f - nf_s) \right] \\
+=f_s \cdot \widetilde{x}_a(f - nf_s) \\
+= f_s \cdot \widetilde{x}_a[f_s\frac kN - f_s \cdot n] \\ 
+= f_s \cdot \widetilde{x}_a[f_s(\frac kN - n)]
+$$
+

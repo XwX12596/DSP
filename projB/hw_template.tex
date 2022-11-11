@@ -151,7 +151,33 @@ $$
 $$
     x(n) = \frac{1}{\sqrt{N}} \sum_{k = 0}^{N - 1} \tilde{x}(k) e^{j 2\pi kn/N}
 $$
-\section{03}
+\section{Find Analog Spectrum Value in DFT}
+The DTFT formula can be rewritten as below
+\begin{equation}
+\begin{aligned}
+\tilde{x}_s(f) &= \mathcal{F} \left[ x_s(t) \right] \\ 
+&= \mathcal{F} \left[ x_a(t) \times s(t) \right] \\ 
+&= \tilde{x}_a(f) *\tilde{s}(f) \\ 
+&= \tilde{x}_a(f) * \left[ f_s \sum_n \delta(f - nf_s) \right] \\
+&=f_s \cdot \sum_n \tilde{x}_a(f - nf_s) \\
+\end{aligned}
+\label{eq:dtft_rewrite}
+\end{equation}
+To make the frequency discrete, we should do sampling in frequency domain. The period of (\ref{eq:dtft_rewrite}) is $f_s$, so we make the analog frequency be $f = f_s \cdot \frac k N$.
+
+Therefore, we have
+\begin{equation}
+\begin{aligned}
+\tilde{x}(\frac{k\cdot f_s}{N}) &= f_s \cdot \sum_n \tilde{x}_a[f_s \cdot \frac kN - f_s \cdot n] \\ 
+&= f_s \cdot \sum_n \tilde{x}_a[f_s(\frac kN - n)]
+\end{aligned}
+\label{eq:dtft_rewrite_2}
+\end{equation}
+In order to compute the exact value of $\tilde{x}_a(f)$ for $f = 3010.3 ~\mathrm{Hz} $, we should make $f_s(\frac kN - n) = 3010.3 ~\mathrm{Hz}$ in (\ref{eq:dtft_rewrite_2}). Usually, we know that $f_s > B$ where $B$ is the bandwidth of $x_a(t)$, so $n$ must be $0$, therefore, in order to compute the exact frequency spectrum value, we only should to compute: 
+$$
+f_s\cdot \frac kn = 3010.3 ~\mathrm{Hz}
+$$
+
 
 \section{Comparison of Codes Running Speed}
 Assuming $N$ is the total number of the sampling points, I drew a picture of how much time it takes for 3 methods to do the calculations. The x-axis is $\mathrm{Log}N$, and the y-axis is Time $t$. See Fig.~\ref{fig:speedtest}
