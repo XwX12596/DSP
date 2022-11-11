@@ -107,7 +107,7 @@ Many medical equipment that requires high timeliness has specialized DSP in them
 \section{Relationship Between FT and DTFT}
 We can first put the expression of perfect reconstruction here
 \begin{equation}
-x_s(t) = \sum_{n} \; x(nT) \, \delta(t - nT) = x_a(t) * s(t) =  x_a(t) * \sum_{n} \left[ \delta(t- nT) \right]
+x_s(t) = \sum_{n} \; x(nT) \, \delta(t - nT) = x_a(t) \times s(t) =  x_a(t) \times \sum_{n} \left[ \delta(t- nT) \right]
 \label{eq:sampling}
 \end{equation}
 We put (\ref{eq:sampling}) into FT
@@ -132,9 +132,9 @@ Therefore
 \begin{equation*}
 \begin{aligned}
 \widetilde{x}_s(f) &= \mathcal{F} \left[ x_s(t) \right] \\ 
-&= \mathcal{F} \left[ x_a(t) * s(t) \right] \\ 
-&= \widetilde{x}_a(f) \times \widetilde{s}(f) \\ 
-&= \widetilde{x}_a(f) \times \left[ f_s \sum_n \delta(f - nf_s) \right]
+&= \mathcal{F} \left[ x_a(t) \times s(t) \right] \\ 
+&= \widetilde{x}_a(f) *\widetilde{s}(f) \\ 
+&= \widetilde{x}_a(f) * \left[ f_s \sum_n \delta(f - nf_s) \right]
 \end{aligned}
 \end{equation*}
 
@@ -147,7 +147,7 @@ Therefore, the relationship can be described as
 \section{From Analog Signal to DFT}
 Assuming there's an analog signal $x_a(t)$, computer cannot deal with analog values, so we can sample it use Shannon/Nyquist sampling method. 
 \begin{equation}
-x(n) = x_s(t) =  x_a(t) * \sum_{n} \left[ \delta(t- nT) \right] = \sum_{n} \; x(nT) \, \delta(t - nT)
+x(n) = x_s(t) =  x_a(t) \times \sum_{n} \left[ \delta(t- nT) \right] = \sum_{n} \; x(nT) \, \delta(t - nT)
 \label{eq:Sampling_Mod}
 \end{equation}
 Then, we should analyze $x(n)$ in frequency domain, calculate the FT of $x(n)$ as below. Also, because computer cannot deal with analog values, so we should assume $n \in [0, N)$ to make $x_a(t)$ time-limited.
@@ -181,7 +181,7 @@ Variables in (\ref{eq:DFT}) are $n$ and $k$.
 
 First, here's my thoughts about $n$. Since $\widetilde{x}_s(k)$ is just a sampling of $\widetilde{x}_s(f)$, if we can find high analog frequency in $\widetilde{x}_s(f)$, the same method works for $\widetilde{x}_s(k)$. Go back and see (\ref{eq:relationship}), it tells us that $\widetilde{x}_s(f)$ is just many copies and frequency-shift of $\widetilde{x}_a(f)$. Therefore, the bigger $n$ gets, the higher $\widetilde{x}_s(f)$ reach. 
 
-Then, $k$ also matters. $k$ has its source from $f$, when $k$ (also $f$) gets bigger, no doubt the frequency gets bigger. However, $n$ decides on frequency domain which period we are in. If $n$ is fixed, we cannot reach other other frequency out of this specific interval.  
+Then, $k$ also matters. $k$ has its source from $f$, when $k$ (also $f$) gets bigger, no doubt the frequency gets bigger. However, $n$ decides on frequency domain which period we are in. If $n$ is fixed, we cannot reach other other frequency out of this specific interval.
 
 
 % \section{Conclusion}
