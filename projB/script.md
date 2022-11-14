@@ -70,3 +70,17 @@ $$
 = f_s \cdot \widetilde{x}_a[f_s(\frac kN - n)]
 $$
 
+Atacame in South America
+
+- 鸬鹚 5万
+- 陆地尘土肥沃大海
+- 一场雨使沙漠焕发生机
+- 干草甸 
+- If anything happened to the ants or to the gentian, the alcon blue would become extinct
+- protect the precious space that grasslands and deserts provide, and the animals will bounce back
+
+从这次的视频中我们看到，生态系统是如何连系在一起的，从沙漠中的生物讲到草原上的生物，不管是鸬鹚还是野牛，不管是猎豹还是老虎，都同处于一个地球。就像A，ants，gentian这三者之间的关系一样，我们人类和动物之间也应该是相互依存的关系，我们人类当然也有保护这个地球的义务和责任，所以不论是盗猎，无尽扩张的农业，还是其他破坏野生动物栖息地的行为都应该得到控制，这确实是我们的责任。
+
+我们从前学过地球上的水循环，水从地面上蒸发，被风带到世界各处，再通过雨水的形式降落到地球的各个角落，这样的空中水循环是依赖大气与其流动，也就是风来进行的，而在视频中特意提到，沙漠中的尘土通过风被传送到海上的提供养分这一细节。我认为这就是这部纪录片我很喜欢的原因
+
+这周，我们领略了沙漠和草原的风光。然后，在第二节中，我从DFT推导出了IDFT的公式。在第三节中，我通过改写DTFT的公式，找到了能在DFT中找到模拟频谱分量的方式。最后，我统合了课堂上展示的代码，完成了这一部分比较代码运行速度的任务，此外，通过使用Matplotlib，我画了一张图用来比较不同代码实现DFT的运行速度。
