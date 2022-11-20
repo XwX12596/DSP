@@ -16,9 +16,9 @@ phase = np.angle(xt)
 freq = fftfreq(x.size, d=(1/fs))
 
 """Simple High-Pass Filter"""
-# fl = 750
-# xt[int(-fl * sec):] = 0
-# xt[:int(fl * sec)] = 0
+fl = 2000
+xt[int(-fl * sec):] = 0
+xt[:int(fl * sec)] = 0
 """Simple Low-Pass Filter"""
 # fh = 810
 # cfq = xt.size/2

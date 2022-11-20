@@ -74,14 +74,19 @@ Actually, we made a box antenna in last summer holiday lessons, that is interest
 I am very glad to see the IPv6 is developing.If every device can have its own address, it will be much convenient to play video games together or host a server of, perhaps, Minecraft, which is a customizable java game. Moreover, the smart devices around us can 'talk' with each other, so that they can work better.
 
 \section{Frequency Range of Voice}
-To find the range of my voice frequency, I want to record my voice and do FFT to it. Then, I filter some frequencies under or beyond a certain value, if I can hear my voice, I filter more frequencies out until I cannot hear my voice. See Fig.~\ref{fig:voiceSpectrum}, there are the original wave, wave through a high-pass filter and spectrum of the 2nd wave.
+To find the range of my voice frequency, I want to record my voice and do FFT to it, see Fig.~\ref{fig:voiceSpectrum}. We can know from the spectrum that the range of my voice is about $120~\mathrm{Hz} \sim 1200~\mathrm{Hz}$.
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=6 in]{../pic/voiceSpectrum.png}
+	\includegraphics[width=6 in]{../pic/voiceOri.png}
 	\caption{Spectrum of My Voice}
 	\label{fig:voiceSpectrum}
 \end{figure}
+
+
+There are many peaks in the spectrum of my voice. These peaks appear almost equidistant, which reminds me of overtones. They also appear equidistant in the spectrum. So combining this knowledge, I know that the lowest peak should be about $130~\mathrm{Hz}$, and the highest peak should be about $1170~\mathrm{Hz}$. However, even though we can judge the frequency of the sound in this audio segment through the spectrum, the overtone of the voice can actually continue to a higher frequency. By filtering out the low frequency and intermediate frequency parts of this audio, I found that even at about $8000~\mathrm{Hz}$, I can still hear something like my voice, even though it is difficult to call such sounds my own voice.
+
+So my conclusion is that my voice is mainly composed of $130~\mathrm{Hz}$ to $1170~\mathrm{Hz}$ sounds, but my voice contains higher overtones, and overtones will eventually be submerged in noise due to attenuation and cannot be measured.
 
 \section{Which Contains More Image Information, Amplitude or Phase?}
 \subsection{Explanation}
@@ -121,7 +126,7 @@ from matplotlib import pyplot as plt
 from scipy.io.wavfile import write, read
 
 """Read Record File"""
-fs, x = read('song.wav')
+fs, x = read('short.wav')
 x = x[:, 0]
 sec = x.size/fs
 t = np.arange(0, sec, 1/fs)
@@ -133,17 +138,17 @@ phase = np.angle(xt)
 freq = fftfreq(x.size, d=(1/fs))
 
 """Simple High-Pass Filter"""
-fc = 1100
-ap[int(-fc * sec):] = 0
-ap[:int(fc * sec)] = 0
+fl = 8000
+xt[int(-fl * sec):] = 0
+xt[:int(fl * sec)] = 0
 """Simple Low-Pass Filter"""
+# fh = 810
 # cfq = xt.size/2
-# ap[int(cfq - (fs/2 - 2000) * seconds):int(cfq + (fs/2 - 2000) * seconds)] = 0
+# xt[int(cfq - (fs/2 - fh) * sec):int(cfq + (fs/2 - fh) * sec)] = 0
 
 """Do IFFT And Output"""
-xt_f = ap * np.exp(1j * phase)
-ix = np.real(ifft(xt_f))
-write('out.wav', fs, ix)
+ix = np.array(np.real(ifft(xt)), dtype=np.int16)
+write('out-voice.wav', fs, ix)
 
 """Draw Wave and Spectrum"""
 ax0 = plt.subplot(311)
@@ -156,9 +161,10 @@ ax1.plot(t, ix)
 
 ax2 = plt.subplot(313)
 ax2.set_title("Spectrum of Wave Through Filter")
-ax2.plot(freq, ap)
+ax2.plot(freq, np.abs(xt))
 
 plt.show()
+
 
 \end{python}
 
