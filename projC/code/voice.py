@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 from scipy.io.wavfile import write, read
 
 """Read Record File"""
-fs, x = read('song.wav')
+fs, x = read('short.wav')
 x = x[:, 0]
 sec = x.size/fs
 t = np.arange(0, sec, 1/fs)
@@ -16,17 +16,17 @@ phase = np.angle(xt)
 freq = fftfreq(x.size, d=(1/fs))
 
 """Simple High-Pass Filter"""
-fc = 1100
-ap[int(-fc * sec):] = 0
-ap[:int(fc * sec)] = 0
+# fl = 750
+# xt[int(-fl * sec):] = 0
+# xt[:int(fl * sec)] = 0
 """Simple Low-Pass Filter"""
+# fh = 810
 # cfq = xt.size/2
-# ap[int(cfq - (fs/2 - 2000) * seconds):int(cfq + (fs/2 - 2000) * seconds)] = 0
+# xt[int(cfq - (fs/2 - fh) * sec):int(cfq + (fs/2 - fh) * sec)] = 0
 
 """Do IFFT And Output"""
-xt_f = ap * np.exp(1j * phase)
-ix = np.real(ifft(xt_f))
-write('out.wav', fs, ix)
+ix = np.array(np.real(ifft(xt)), dtype=np.int16)
+write('out-voice.wav', fs, ix)
 
 """Draw Wave and Spectrum"""
 ax0 = plt.subplot(311)
@@ -39,6 +39,6 @@ ax1.plot(t, ix)
 
 ax2 = plt.subplot(313)
 ax2.set_title("Spectrum of Wave Through Filter")
-ax2.plot(freq, ap)
+ax2.plot(freq, np.abs(xt))
 
 plt.show()
