@@ -47,7 +47,7 @@ breakindent=.5\textwidth,frame=single,breaklines=true
 \maketitle
 \tableofcontents
 \begin{abstract}
-
+In the first section, I summarized the videos we watched in class this week. There are two topics, IPv6 and SDR. I put forward my own ideas on these two topics. In the second section, I measured the highest frequency and lowest frequency of my voice by using the filter to continuously test. In the third section, I try to use the knowledge of information theory to explain why the phase spectrum of an image contains more information.
 \end{abstract}
 
 
@@ -114,6 +114,7 @@ I guess the reason why the amplitude contains less information is amplitude spec
 \begin{appendices}
 \section{Code Listing}
 \begin{python}
+# voice.py
 import numpy as np
 from numpy.fft import fft, fftfreq, ifft
 from matplotlib import pyplot as plt
@@ -162,6 +163,7 @@ plt.show()
 \end{python}
 
 \begin{python}
+# imgSpec.py
 import cv2
 import numpy as np 
 from matplotlib import pyplot as plt
