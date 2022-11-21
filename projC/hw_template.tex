@@ -84,7 +84,16 @@ To find the range of my voice frequency, I want to record my voice and do FFT to
 \end{figure}
 
 
-There are many peaks in the spectrum of my voice. These peaks appear almost equidistant, which reminds me of overtones. They also appear equidistant in the spectrum. So combining this knowledge, I know that the lowest peak should be about $130~\mathrm{Hz}$, and the highest peak should be about $1170~\mathrm{Hz}$. However, even though we can judge the frequency of the sound in this audio segment through the spectrum, the overtone of the voice can actually continue to a higher frequency. By filtering out the low frequency and intermediate frequency parts of this audio, I found that even at about $8000~\mathrm{Hz}$, I can still hear something like my voice, even though it is difficult to call such sounds my own voice.
+There are many peaks in the spectrum of my voice. These peaks appear almost equidistant, which reminds me of overtones. They also appear equidistant in the spectrum. So combining this knowledge, I know that the lowest peak should be about $130~\mathrm{Hz}$, and the highest peak should be about $1170~\mathrm{Hz}$. However, even though we can judge the frequency of the sound in this audio segment through the spectrum, the overtone of the voice can actually continue to a higher frequency. By filtering out the low frequency and intermediate frequency parts of this audio, I found that even at about $2000~\mathrm{Hz}$, I can still hear something like my voice, even though it is rather weak, see Fig.~\ref{fig:filteredVoice}.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=5 in]{../pic/filteredVoice.png}
+	\caption{My voice Through High-Pass Filter}
+	\label{fig:filteredVoice}
+\end{figure}
+
+\newpage
 
 So my conclusion is that my voice is mainly composed of $130~\mathrm{Hz}$ to $1170~\mathrm{Hz}$ sounds, but my voice contains higher overtones, and overtones will eventually be submerged in noise due to attenuation and cannot be measured.
 
@@ -112,6 +121,7 @@ I guess the reason why the amplitude contains less information is amplitude spec
 	\label{fig:imgSpec}
 \end{figure}
 
+\newpage
 
 \bibliographystyle{ieeetr}
 \bibliography{../bib/database}
@@ -126,7 +136,7 @@ from matplotlib import pyplot as plt
 from scipy.io.wavfile import write, read
 
 """Read Record File"""
-fs, x = read('short.wav')
+fs, x = read('voice.wav')
 x = x[:, 0]
 sec = x.size/fs
 t = np.arange(0, sec, 1/fs)
@@ -138,7 +148,7 @@ phase = np.angle(xt)
 freq = fftfreq(x.size, d=(1/fs))
 
 """Simple High-Pass Filter"""
-fl = 8000
+fl = 2000
 xt[int(-fl * sec):] = 0
 xt[:int(fl * sec)] = 0
 """Simple Low-Pass Filter"""
