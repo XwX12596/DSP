@@ -31,7 +31,7 @@ To do list :
 
 - [x] Weekly Project XI
 
-- [ ] Weekly Project XII
+- [x] Weekly Project XII
 
 - [x] Monthly Project I
 
