@@ -2,7 +2,7 @@ import cv2
 import numpy as np 
 from matplotlib import pyplot as plt
 
-img1 = cv2.imread("bliss.jpeg", cv2.IMREAD_GRAYSCALE)
+img1 = cv2.imread("bliss.jpg", cv2.IMREAD_GRAYSCALE)
 imgt1 = np.fft.fft2(img1)
 img2 = cv2.imread("yousa.jpg", cv2.IMREAD_GRAYSCALE)
 imgt2 = np.fft.fft2(img2)
