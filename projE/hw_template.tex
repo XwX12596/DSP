@@ -50,13 +50,127 @@ breakindent=.5\textwidth,frame=single,breaklines=true
 
 \end{abstract}
 
-\section{01}
+\section{Videos}
 
-\section{02}
+\section{FIR And IIR}
+\subsection{(a)}
+\subsubsection{When $Q = 0$}
+When $Q = 0$, the system can be represented as 
+$$
+y(n) = a_0x(n) + \cdots + a_Px(n - P)
+$$
+Then, the $h(n)$ can be written as
+$$
+h(n) =  \sum_i^P a_i \times \delta(n - i)
+$$
+So, $h(n)$ has finite duration, the system is FIR.
+\subsubsection{When $Q > 0$}
+When $Q > 0$, the system can be represented as 
+\begin{equation}
+y(n) + b_1 y(n - 1) + \cdots + b_Q y(n - Q) = a_0 x(n) + a_1 x(n - 1) + \cdots + a_P x(n - P)
+\label{eq:iir}
+\end{equation}
+We can know that the $y(n), y(n - 1), y(n - 2), \cdots $ is 
+\begin{gather}
+y(n) = a_0 x(n) + a_1 x(n - 1) + \cdots + a_P x(n - P) - b_1 y(n - 1) - \cdots - b_Q y(n - Q) \label{eq:yn} \\ 
+y(n - 1) = a_0 x(n - 1) + a_1 x(n - 2) + \cdots + a_P x(n - P - 1) - b_1 y(n - 2) - \cdots - b_Q y(n - Q - 1) \label{eq:yn-1} \\ 
+y(n - 2) = a_0 x(n - 2) + a_1 x(n - 3) + \cdots + a_P x(n - P - 2) - b_1 y(n - 3) - \cdots - b_Q y(n - Q - 2) \label{eq:yn-2} \\ 
+y(n - 3) = a_0 x(n - 3) + a_1 x(n - 4) + \cdots + a_P x(n - P - 3) - b_1 y(n - 4) - \cdots - b_Q y(n - Q - 3) \notag \\ 
+\cdots \notag
+\end{gather}
 
-\section{03}
+Equation (\ref{eq:yn}) contains all the terms in (\ref{eq:yn-1}), and (\ref{eq:yn-1}) contains all the terms in (\ref{eq:yn-2}), all the same below, so (\ref{eq:yn}) seems to have more terms than (\ref{eq:yn-1}). However, actually there are always the same number of terms in each equation, so (\ref{eq:yn}) does contain all the terms in (\ref{eq:yn-1}), but also it has the same number of terms compared with the equations below. Only possibility is that $y(n)$ and $y(n - 1)$ and so on have infinite number of terms. In one word, the system which (\ref{eq:iir}) reveals is IIR.
+\subsection{(b)}
+\subsubsection{Digital Filter Stability}
+When a digital filter has the feature that when input is bounded, the output must be bounded, this digital filter is stable.
+\subsubsection{FIR Stability}
+FIR can be expressed as below
+$$
+y(n) = a_0x(n) + \cdots + a_Px(n - P)
+$$
+If $x(n)$ is bounded, we can always find a maximum of $|x(n)|$ which we call it $max\{ |x| \}$. And we can find the maximum of $|a_i|$ which we call it $A$ as well. So
 
-\section{04}
+\begin{align*}
+y(n)  &= a_0x(n) + \cdots + a_Px(n - P) \\ 
+&< |a_0||x(n)| + \cdots + |a_P||x(n - P)| \\ 
+&< A\times max\{ x \} \times P \\ 
+&< \infty
+\end{align*}
+
+\subsubsection{IIR Stability}
+We have
+\begin{align*}
+	|y(n)| &= |x(n) * h(n)| \\ 
+	& \leq \sum_{m} |x(m) \times h(m - n)| \\ 
+	& \leq \sum_{m} |x(m)| \times |h(n - m)| \\ 
+	& \leq \sum_{m} max\{ x \} \times h(n - m) \\ 
+	& = max\{ x \}  \sum_{m} h(m)
+\end{align*}
+and if we need $y(n) < \infty$, we should have
+\begin{equation}
+\sum_{- \infty}^{\infty} h(n) < \infty
+\label{eq:limit}
+\end{equation}
+
+Look at the $\tilde{h}(z)$ we can get from (\ref{eq:yn}):
+\begin{equation}
+	\tilde{h}(z) = \frac{\sum_{p = 0}^{P}a_p z^{-p}}{\sum_{q = 0}^{Q} b_q z^{-q}}
+	\label{eq:hz}
+\end{equation}
+
+According to mathematics, we can rewrite $h(z)$ as below
+
+\begin{equation}
+\tilde{h}(z) = z^{\lambda - 1} \left[ \frac{z}{z - \alpha_0} + \frac{z}{z - \alpha_1 } + \cdots + \frac{z}{z - \alpha_N } \right]
+\label{eq:hzz}
+\end{equation}
+
+First, we know in frequency domain, the $\frac{z}{z - \alpha} = \frac{1}{1 - \alpha/z} = \sum_{- \infty}^{\infty} az^{-1}$ means $\alpha^n$ in time domain.
+
+Second, see (\ref{eq:hzz}) again, and in order to satisfy the requirement in (\ref{eq:limit}), we need to make all poles in (\ref{eq:hzz}) (which are $\alpha$ here) less than $1$, so that all $\alpha^n$ will converge, at last $h(z)$ will also converge.
+
+\subsubsection{An Example in Class}
+When $Q = 2, P = 0$, we have
+
+\begin{equation}
+y(n) + b_1y(n - 1) + b_2y(n - 2) = a_0 x(n)
+\label{eq:yxExample}
+\end{equation}
+In this condition, $\tilde{h}(z)$ is like 
+\begin{equation}
+\tilde{h}(z) = \frac{a_0}{1 + b_1 z^{-1} + b_2 z^{-2}} = \frac{a_0 z^2}{z^2 + b_1 z + b_2}
+\label{eq:hzExample}
+\end{equation}
+Here, the expression of $H(z)$ is as below
+\begin{equation}
+H(z) = z^2 + b_1 z + b_2
+\label{eq:Hz}
+\end{equation}
+Roots of this equation is $z = -b_1 \pm \sqrt{b_1^2 - 4 b_2}$.
+
+First, if (\ref{eq:Hz}) has real root(s), to make the root(s) be in (-1, 1), the sufficient and necessary conditions is as below
+\begin{align*}
+	\begin{cases}
+		H(-1) = 1 - b_1 + b_2 > 0 \\ 
+		H(1) = 1 + b_1 + b_2 > 0 \\ 
+		- \frac{b_1}{2} \in (-1, 1)
+	\end{cases}
+\end{align*}
+
+It is easy using linear programming to prove that all the conditions above can be derived from $|b_1| + |b_2| < 1$.
+
+Second, if (\ref{eq:Hz}) has complex root(s), to make the root(s) be in (-1, 1), the sufficient and necessary conditions is as below
+
+\begin{align*}
+		|\alpha_1| = |\alpha_2| &= |\frac{-b_1 \pm j\sqrt{4b_2 - b_1^2}}{2}| \\ 
+		&= \sqrt{b_2} \in (-1, 1)
+\end{align*}
+It is easy to find that $\sqrt{b_2} \in (-1, 1)$ according to $|b_1| + |b_2| < 1$. 
+
+In conclusion, we can find that if $|b_1| + |b_2| < 1$ is true, the roots of $H(z)$ is all within the unit circle which means the system in (\ref{eq:hz}) is stable. So, $|b_1| + |b_2| < 1$ is a sufficient condition for the IIR system to be stable when $Q = 2, P = 0$.
+
+\section{Why Some Voices Sound nicer}
+
 
 
 
