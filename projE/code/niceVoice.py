@@ -1,12 +1,27 @@
 import numpy as np
-from scipy.io.wavfile import write
-f = 440
-fs = 96000 # sampling 
-length = 2 # seconds it lasts
-x = np.arange(fs*length)
-y = np.sin(2 * np.pi * f / fs * x) # generate a sine wave
+from numpy.fft import fft, fftfreq
+from matplotlib import pyplot as plt
+from scipy.io.wavfile import read
 
-ctrl = [0, 1, 100, 2, 5, 0.1, 0.01]
-for i in range(2, 7):
-    y += ctrl[i] * np.sin(2 * np.pi * i * f / fs * x)
-write('./projE/code/sin.wav', fs, y)
+"""Read Record File"""
+fs, x = read('./projE/code/2.wav')
+x = x[:, 0]
+sec = x.size/fs
+t = np.arange(0, sec, 1/fs)
+
+"""Do FFT"""
+xt = fft(x)
+ap = np.abs(xt)
+phase = np.angle(xt)
+freq = fftfreq(x.size, d=(1/fs))
+
+"""Draw Wave and Spectrum"""
+# ax0 = plt.subplot(311)
+# ax0.set_title("Original Wave")
+# ax0.plot(t, x)
+
+plt.figure()
+plt.title('Spectrum of Man')
+plt.plot(freq, np.abs(xt))
+
+plt.show()
