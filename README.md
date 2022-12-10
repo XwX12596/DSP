@@ -35,8 +35,12 @@ To do list :
 
 - [x] Weekly Project XIII
 
-- [ ] Weekly Project XIV
+- [x] Weekly Project XIV
+
+- [ ] Weekly Project XV
 
 - [x] Monthly Project I
 
 - [x] Monthly Project II
+
+- [ ] Monthly Projedt III
