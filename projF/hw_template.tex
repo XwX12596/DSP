@@ -20,20 +20,49 @@
 \end{abstract}
 
 \section{Videos}
+\subsection{History of Boston Dynamics}
+We can see in this video how the robots of Boston Power changed from the original "noise maker" or "two drunken people carrying the sofa" to various robots that play powerful functions according to their own characteristics.
+
+At first, Boston Dynamics wanted to make a transport robot for the military that could be used in actual combat, but eventually stopped the project because of the excessive noise. Even though Boston Power once built such a robot again, it finally abandoned the original robot.
+
+In turn, they began to make more refreshing kinds of bionic robots. For example, the smallest spot is developed with a flexible dog as its prototype; At the same time, there is also the humanoid robot Atlas, which is the most advanced product of Boston Power at present, promoting the technical innovation of software and hardware of the whole company.
+
+\subsection{Mosquitoes}
+Mosquitoes are a very disgusting kind of insects, one of the reasons is that they always keep buzzing in the summer. In this video, we can see that a researcher has captured many mosquitoes to study the "melody" of their wings.
+
+The researchers used a microphone to record the sound of mosquitoes flapping their wings and analyzed it with computer. They found that the frequency of male mosquitoes flapping their wings was not the same as that of female mosquitoes. But this is very obvious. Because there is a big difference in body size between male mosquitoes and female mosquitoes, female mosquitoes with large wings naturally can fly freely only by flapping their wings slowly.
+
+The mosquito will take advantage of this difference when courting, that is, when mating, the mosquito will preferentially choose the opposite sex who can flap their wings with the same frequency.
+\subsection{Micro Robots}
+This video mainly introduces the Micro Robots in the title. Most of these robots use the appearance of insects and can move freely. They use their tiny body features to accomplish things that humans cannot do.
+
+\subsection{Our Planet}
+
+
+\subsection{My Thoughts}
+\subsubsection*{History of Boston Dynamics}
+In the last ten years, Boston Power has achieved great success in bionic robots. There are not only assistant robots, but also commercially available robots like Stretch that are somewhat like worker bees. As the video finally said, robot people will "occupy" the world, and robots will control power in science fiction, but in real life, It is really possible for robots to master the labor market one day.
+
+\subsubsection*{Mosquitoes}
+
+\subsubsection*{Micro Robots}
+
+\subsubsection*{Our Planet}
+
 
 \section{How fast do Mosquitoes Flap}
 \subsection{Frequency Spectrum}
 First, draw the frequency spectrum, see Fig.~\ref{fig:MosquitoSpec}
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=5 in]{../pic/MosquitoSpec.png}
+	\includegraphics[width=3 in]{../pic/MosquitoSpec.png}
 	\caption{The Spectrum Of Mosquitoes Flipping Their Wings}
 	\label{fig:MosquitoSpec}
 \end{figure}
 The fundamental frequency is about $400~\mathrm{Hz}$, if we want to know the instantaneous frequency mosquitoes flip, we only need the fundamental frequency, see Fig.~\ref{fig:FilteredMosquito}.
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=5 in]{../pic/FilteredMosquitoFlip.png}
+	\includegraphics[width=3 in]{../pic/FilteredMosquitoFlip.png}
 	\caption{Base-band Spectrum of Mosquitoes' Flipping}
 	\label{fig:FilteredMosquito}
 \end{figure}
@@ -42,7 +71,7 @@ The fundamental frequency is about $400~\mathrm{Hz}$, if we want to know the ins
 To know the instantaneous frequency, I want to cut the wave file into small slice, count how many times the line cross the zero point, and divide this count with the duration time of that small slice to get the frequency here. We usually use Schmidt trigger to this counting job, see Fig.~\ref{fig:CountFlipping}.
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=5 in]{../pic/CountFlipping.png}
+	\includegraphics[width=3 in]{../pic/CountFlipping.png}
 	\caption{Schmidt Trigger Applied Here}
 	\label{fig:CountFlipping}
 \end{figure}
@@ -51,7 +80,7 @@ To know the instantaneous frequency, I want to cut the wave file into small slic
 Here are my results, see Fig.~\ref{fig:MosquitoResults}.
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=5 in]{../pic/MosquitoResults.png}
+	\includegraphics[width=3 in]{../pic/MosquitoResults.png}
 	\caption{My Results}
 	\label{fig:MosquitoResults}
 \end{figure}
