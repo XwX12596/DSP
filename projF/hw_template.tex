@@ -16,7 +16,7 @@
 \maketitle
 \tableofcontents
 \begin{abstract}
-
+In the first section I summarized the 4 videos we watched this week, and came up with my opinions. In the second section, I found out the instantaneous frequency of mosquitoes flapping their wings. In the last section, I simulate base-band wireless communication with python script. Also, I found a mistake in the class that may lead to misunderstanding, see Appendix A.
 \end{abstract}
 
 \section{Videos}
@@ -37,18 +37,19 @@ The mosquito will take advantage of this difference when courting, that is, when
 This video mainly introduces the Micro Robots in the title. Most of these robots use the appearance of insects and can move freely. They use their tiny body features to accomplish things that humans cannot do.
 
 \subsection{Our Planet}
-
+In Our Planet this time, we saw that fish, amphibians and land creatures living in fresh water, which depend on water resources for survival, are more or less facing the crisis of water shortage. In some places, water resources are still sufficient, while in some places, drought occurs frequently. For example, hippos forced to live in mud, live in pain against their habits.
 
 \subsection{My Thoughts}
 \subsubsection*{History of Boston Dynamics}
 In the last ten years, Boston Power has achieved great success in bionic robots. There are not only assistant robots, but also commercially available robots like Stretch that are somewhat like worker bees. As the video finally said, robot people will "occupy" the world, and robots will control power in science fiction, but in real life, It is really possible for robots to master the labor market one day.
 
 \subsubsection*{Mosquitoes}
+Although most animals in nature have different ways of information communication with humans, most of them communicate through sound, light and other signals, which gives human engineers a chance to steal their ideas. We can find out the advantages and disadvantages of biology by studying similar studies of mosquitoes flapping their wings, so as to better understand animal friends and even communicate with them.
 
 \subsubsection*{Micro Robots}
-
+There are too many things that humans can't do. Some robots imitate humans to achieve what humans can do with robots, which is great, just like Boston Power. But such micro robots can accomplish things that are difficult for human beings by imitating the appearance behavior of other animals and insects, which is also a great work. I am looking forward to these robots playing a role in future human activities, such as accident search and rescue, cave exploration, and so on.
 \subsubsection*{Our Planet}
-
+This week's Our Planet is the theme of fresh water. Among the world's water resources, only fresh water can be used as the necessities of most land life. So we can see in our Planet in this episode that the fresh water resources on the land are constantly disappearing in the constant consumption of human beings. Not only is excessive agriculture, but also various behaviors that change the flow of rivers and cause the destruction of biological habitats are not conducive to the earth as the current emperors of the earth.
 
 \section{How fast do Mosquitoes Flap}
 \subsection{Frequency Spectrum}
@@ -56,24 +57,25 @@ First, draw the frequency spectrum, see Fig.~\ref{fig:MosquitoSpec}
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=3 in]{../pic/MosquitoSpec.png}
-	\caption{The Spectrum Of Mosquitoes Flipping Their Wings}
+	\caption{The Spectrum Of Mosquitoes Flapping Their Wings}
 	\label{fig:MosquitoSpec}
 \end{figure}
-The fundamental frequency is about $400~\mathrm{Hz}$, if we want to know the instantaneous frequency mosquitoes flip, we only need the fundamental frequency, see Fig.~\ref{fig:FilteredMosquito}.
+The fundamental frequency is about $400~\mathrm{Hz}$, if we want to know the instantaneous frequency mosquitoes flap, we only need the fundamental frequency, see Fig.~\ref{fig:FilteredMosquito}.
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=3 in]{../pic/FilteredMosquitoFlip.png}
-	\caption{Base-band Spectrum of Mosquitoes' Flipping}
+	\includegraphics[width=3 in]{../pic/FilteredMosquitoFlap.png}
+	\caption{Base-band Spectrum of Mosquitoes' Flapping}
 	\label{fig:FilteredMosquito}
 \end{figure}
 
 \subsection{Counting With Schmidt Trigger}
-To know the instantaneous frequency, I want to cut the wave file into small slice, count how many times the line cross the zero point, and divide this count with the duration time of that small slice to get the frequency here. We usually use Schmidt trigger to this counting job, see Fig.~\ref{fig:CountFlipping}.
+To know the instantaneous frequency, I want to cut the wave file into small slice, count how many times the line cross the zero point, and divide this count with the duration time of that small slice to get the frequency here. In order to avoid the detector being too sensitive, I use Schmidt trigger to do this job, see Fig.~\ref{fig:CountFlapping}.
+
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=3 in]{../pic/CountFlipping.png}
+	\includegraphics[width=3 in]{../pic/CountFlapping.png}
 	\caption{Schmidt Trigger Applied Here}
-	\label{fig:CountFlipping}
+	\label{fig:CountFlapping}
 \end{figure}
 
 \subsection{Results}
@@ -130,6 +132,9 @@ Please see the terminal output in Fig.~\ref{fig:CalculationError} which proves m
 This error is revealed in float numbers like $2.99\cdots96$ and $-4.00\cdots02$ in line 4 and 6 of Fig.~\ref{fig:CalculationError}.
 
 There are my comparison between whether there is noise or calculation error in signal $y$, see Fig.~\ref{fig:Comparison}.
+
+% \newpage
+
 \begin{figure}[!h]
 	\centering
 	\subfigure[$\tilde{h}$ is stable]{\includegraphics[height=1.7 in]{../pic/StabilityComparison.png}
@@ -188,6 +193,8 @@ This small mistake in recovering $x$ is \emph{working as noise}, as a result, th
 	\caption{Different Behavior Between Previous Code and Current Code}
 	\label{fig:diffRec}
 \end{figure}
+
+\newpage
 
 \section{Code Listing}
 \begin{python}
@@ -292,7 +299,7 @@ def loadWAV(fname):
     wt[int(cfq - (fs/2 - fh) * sec):int(cfq + (fs/2 - fh) * sec)] = 0
     return fs, w, wt, freq
 
-def countFlip(w, fs, gate, intv):
+def countFlap(w, fs, gate, intv):
     N = len(w)
     M = N//intv
     count = 0
@@ -317,7 +324,7 @@ fs, w, wt, freq = loadWAV("/home/xmh/DSP/projF/code/mosquito-cut.wav")
 iw = np.array(np.real(ifft(wt)), dtype=np.int16)
 write('/home/xmh/DSP/projF/code/mosquito-out.wav', fs, iw)
 
-dt, L = countFlip(iw, fs, gate=300, intv=400)
+dt, L = countFlap(iw, fs, gate=300, intv=400)
 F = L/(dt)
 gapTime = np.arange(0, 2, dt)
 
