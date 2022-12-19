@@ -1,4 +1,4 @@
-# Digital Signal Processing Homework
+#Digital Signal Processing Homework
 
 >随便吧。
 >
@@ -37,10 +37,14 @@ To do list :
 
 - [x] Weekly Project XIV
 
-- [ ] Weekly Project XV
+- [x] Weekly Project XV
+
+- [x] Weekly Project XVI
+
+- [ ] Weekly Project XVII
 
 - [x] Monthly Project I
 
 - [x] Monthly Project II
 
-- [ ] Monthly Projedt III
+- [x] Monthly Projedt III
