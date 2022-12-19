@@ -41,3 +41,6 @@ Though quantum computers are strong, the working condition is too strict so that
 
 ## Homework  Set
 
+- sampling
+- quantization
+- 
